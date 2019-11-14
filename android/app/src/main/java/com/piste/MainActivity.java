@@ -1,6 +1,8 @@
 package com.piste;
 
 import com.facebook.react.ReactActivity;
+import org.devio.rn.splashscreen.SplashScreen; // Import this.
+import android.os.Bundle; // Import this.
 
 public class MainActivity extends ReactActivity {
 

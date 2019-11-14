@@ -1,17 +1,18 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-stack-navigation'
-import Login from './screens/LoginScreen';
+import { createStackNavigator } from 'react-navigation-stack';
+import LoginScreen from './screens/LoginScreen';
+
 const AppNavigator = createStackNavigator({
-  Login
+  LoginScreen
 }, {
-  initialRouteName: 'Login',
+  initialRouteName: 'LoginScreen',
   // defaultNavigationOptions: {
-  //   header: props => <Header {...props}/>,
+  //   // header: props => <Header {...props}/>,
   //   headerStyle: {
-  //     backgroundColor: '#222F3E',
+  //     backgroundColor: '#333',
+  //     color: 'white'
   //   },
-  //   headerTintColor: '#4691CD',
   // },
 });
 

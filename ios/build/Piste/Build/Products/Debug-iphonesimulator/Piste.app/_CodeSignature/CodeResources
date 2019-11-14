@@ -10,6 +10,7 @@
 		</data>
 		<key>Base.lproj/LaunchScreen.nib/objects-13.0+.nib</key>
 		<data>
+<<<<<<< HEAD
 		V7IaWGcDzg/0WiBedaY3DIGMk3E=
 		</data>
 		<key>Base.lproj/LaunchScreen.nib/runtime.nib</key>
@@ -19,11 +20,23 @@
 		<key>Info.plist</key>
 		<data>
 		6XZZ16p5Yw/Er3OUJZZulEElClo=
+=======
+		RfAQGq77zHWMJaAH2EYpPjSPXZk=
+		</data>
+		<key>Base.lproj/LaunchScreen.nib/runtime.nib</key>
+		<data>
+		euLyWtlid6Rkgutc/NqMApQe6Ig=
+		</data>
+		<key>Info.plist</key>
+		<data>
+		w9c8DeeckHIhDHqQqpA85RVbyhU=
+>>>>>>> efd13f09... initial setup
 		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
+<<<<<<< HEAD
 		<key>RedHatText-Bold.ttf</key>
 		<data>
 		oGMRbp6zgPQhRkk+5z/blMHBCno=
@@ -36,6 +49,8 @@
 		<data>
 		qk1L3vkwei3v11nrq5rFPf1wEhU=
 		</data>
+=======
+>>>>>>> efd13f09... initial setup
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -54,17 +69,26 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			V7IaWGcDzg/0WiBedaY3DIGMk3E=
 			</data>
 			<key>hash2</key>
 			<data>
 			r6ZiJcLZ6g0PeIWOTexel+E+QBjKLEoQJ0xvrcah2o4=
+=======
+			RfAQGq77zHWMJaAH2EYpPjSPXZk=
+			</data>
+			<key>hash2</key>
+			<data>
+			/EfJppDiQGnCEEO4BSECICfodnEoTPGK+8vKCuCtDVA=
+>>>>>>> efd13f09... initial setup
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			POmFNibFebLHXxVqatQkYICKeAY=
 			</data>
 			<key>hash2</key>
@@ -103,6 +127,13 @@
 			<key>hash2</key>
 			<data>
 			JfJGbAsZEIybzNfKYTNADZZFX9zYL7RXSBpbDICy9sE=
+=======
+			euLyWtlid6Rkgutc/NqMApQe6Ig=
+			</data>
+			<key>hash2</key>
+			<data>
+			DgUE5rDTVumrHAGgO6lAI5+vut5DKDmTmiTW/A6gkU4=
+>>>>>>> efd13f09... initial setup
 			</data>
 		</dict>
 	</dict>
