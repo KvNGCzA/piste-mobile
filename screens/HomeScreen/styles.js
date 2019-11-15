@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { colors, fonts } from '../../commons';
+import { Platform } from '@unimodules/core';
+import reactotron from 'reactotron-react-native';
+
 
 export default StyleSheet.create({
   container: {
@@ -8,11 +11,13 @@ export default StyleSheet.create({
     backgroundColor: colors.secondaryColor,
   },
   backImage: {
-    flex: 1,
     width: '100%',
     position: 'absolute',
-    height: '100%',
-    alignItems: 'center',
+    top:0,
+    height: 260
+  },
+  imageStyle: {
+    resizeMode: 'cover',
   },
   content: {
     marginTop: 135,
@@ -30,7 +35,7 @@ export default StyleSheet.create({
   overviewValue: {
     fontSize: 32,
     fontFamily: fonts.redHat,
-    fontWeight: '500',
+    fontWeight: Platform.OS === 'ios' ? '500' : '400',
     color: colors.textGrey,
     textAlign: 'right',
     letterSpacing: 1,
@@ -75,9 +80,14 @@ export default StyleSheet.create({
     color: colors.textGrey,
     fontFamily: fonts.redHat,
     textTransform: 'uppercase',
+    letterSpacing: 1
   },
   active: {
     borderColor: '#323232',
     borderWidth: 1,
-  }
+  },
+  body: {
+    paddingLeft: 20,
+    paddingRight: 20
+  },
 });

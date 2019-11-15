@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import {
+  StatusBar, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView
+} from 'react-native';
 import { connect } from 'react-redux';
 import styles from './styles';
 import { isLoggingIn, setGlobal } from '../../store/actions/global';
-import backcurve from '../../assets/backcurve.png'
+import backcurve from '../../assets/backcurve2.png'
 import pass from '../../assets/pass.jpeg'
 import mocks from './__mock__';
 import { addCommas } from '../../helpers';
+import { colors } from '../../commons';
+import InvestmentCard from '../../components/InvestmentCard';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -52,14 +56,29 @@ class HomeScreen extends Component {
     
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor={colors.cardBack} barStyle="light-content" />
         <ImageBackground
           source={backcurve}
           imageStyle={styles.imageStyle}
-          style={styles.backImage}
-        >
-          {this.renderHeadContent()}
+          style={styles.backImage}/>
+        {this.renderHeadContent()}
+        <View style={styles.body}>
           {this.renderHomeNav()}
-        </ImageBackground>
+          <ScrollView
+            scrollEnabled
+            pagingEnabled
+            style={styles.slide}
+            showsHorizontalScrollIndicator={false}
+            onScroll={this.handleScroll}
+            scrollEventThrottle={1000}
+          >
+            {
+            mocks.investments.map((investment) => <InvestmentCard
+              investment={investment} key={investment.id}
+            />)
+          }
+          </ScrollView>
+        </View>
       </View>
     );
   }
