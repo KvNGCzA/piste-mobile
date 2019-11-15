@@ -6,37 +6,24 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		ralcjZFicNr71B7PJxqw0p2GY/A=
+		66vGlXArEog+Q3aNwawL+YzeieA=
 		</data>
 		<key>Base.lproj/LaunchScreen.nib/objects-13.0+.nib</key>
 		<data>
-<<<<<<< HEAD
-		V7IaWGcDzg/0WiBedaY3DIGMk3E=
+		3PKqkR4eKtEBFerFckkppMn2mmk=
 		</data>
 		<key>Base.lproj/LaunchScreen.nib/runtime.nib</key>
 		<data>
-		POmFNibFebLHXxVqatQkYICKeAY=
+		NYCdK1HCtKt4/ov30Ei8nfQB4u8=
 		</data>
 		<key>Info.plist</key>
 		<data>
 		6XZZ16p5Yw/Er3OUJZZulEElClo=
-=======
-		RfAQGq77zHWMJaAH2EYpPjSPXZk=
-		</data>
-		<key>Base.lproj/LaunchScreen.nib/runtime.nib</key>
-		<data>
-		euLyWtlid6Rkgutc/NqMApQe6Ig=
-		</data>
-		<key>Info.plist</key>
-		<data>
-		w9c8DeeckHIhDHqQqpA85RVbyhU=
->>>>>>> efd13f09... initial setup
 		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
-<<<<<<< HEAD
 		<key>RedHatText-Bold.ttf</key>
 		<data>
 		oGMRbp6zgPQhRkk+5z/blMHBCno=
@@ -49,8 +36,6 @@
 		<data>
 		qk1L3vkwei3v11nrq5rFPf1wEhU=
 		</data>
-=======
->>>>>>> efd13f09... initial setup
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -58,42 +43,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ralcjZFicNr71B7PJxqw0p2GY/A=
+			66vGlXArEog+Q3aNwawL+YzeieA=
 			</data>
 			<key>hash2</key>
 			<data>
-			OLlWW/uuGRoox3y8gj8if1PsV6VIHq7cWg7cSVmQqVM=
+			U0CZ6vlbqtqbwU4dtJdqS76fJsf82rlmDUr92UXHavw=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.nib/objects-13.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-<<<<<<< HEAD
-			V7IaWGcDzg/0WiBedaY3DIGMk3E=
+			3PKqkR4eKtEBFerFckkppMn2mmk=
 			</data>
 			<key>hash2</key>
 			<data>
-			r6ZiJcLZ6g0PeIWOTexel+E+QBjKLEoQJ0xvrcah2o4=
-=======
-			RfAQGq77zHWMJaAH2EYpPjSPXZk=
-			</data>
-			<key>hash2</key>
-			<data>
-			/EfJppDiQGnCEEO4BSECICfodnEoTPGK+8vKCuCtDVA=
->>>>>>> efd13f09... initial setup
+			kCfHbAZWecsOgT/rMGAsQHPrDTCMHb5KOANOq4XFK6Q=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-<<<<<<< HEAD
-			POmFNibFebLHXxVqatQkYICKeAY=
+			NYCdK1HCtKt4/ov30Ei8nfQB4u8=
 			</data>
 			<key>hash2</key>
 			<data>
-			QjX9WgIapGLvchUWAp+OxjktoGWEjB2Vb5caepJ+Aq0=
+			gklwPQ9ieXJKivaqlBAchYZB1UIzdY4S1we8AJ4Bxug=
 			</data>
 		</dict>
 		<key>RedHatText-Bold.ttf</key>
@@ -127,13 +103,6 @@
 			<key>hash2</key>
 			<data>
 			JfJGbAsZEIybzNfKYTNADZZFX9zYL7RXSBpbDICy9sE=
-=======
-			euLyWtlid6Rkgutc/NqMApQe6Ig=
-			</data>
-			<key>hash2</key>
-			<data>
-			DgUE5rDTVumrHAGgO6lAI5+vut5DKDmTmiTW/A6gkU4=
->>>>>>> efd13f09... initial setup
 			</data>
 		</dict>
 	</dict>

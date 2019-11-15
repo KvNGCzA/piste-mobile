@@ -44,11 +44,7 @@ buck-out
 .gradle
 local.properties
 *.iml
-<<<<<<< HEAD
-/android/build
-=======
 /android/
->>>>>>> efd13f09... initial setup
 
 # Node
 node_modules
