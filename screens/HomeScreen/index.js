@@ -6,6 +6,7 @@ import { isLoggingIn, setGlobal } from '../../store/actions/global';
 import backcurve from '../../assets/backcurve.png'
 import pass from '../../assets/pass.jpeg'
 import mocks from './__mock__';
+import { addCommas } from '../../helpers';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -21,7 +22,7 @@ class HomeScreen extends Component {
   render() {
     const { email, password } = this.state;
     const { global } = this.props;
-
+    
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -31,8 +32,11 @@ class HomeScreen extends Component {
         >
           <View style={styles.content}>
             <Image source={pass} style={{ width: 100, height: 100, borderRadius: 50 }}/>
-            <View styles={{ alignSelf: 'flex-end', backgroundColor: 'red',  }}>
-              <Text style={styles.overviewValue}>{mocks.overview.networth.total}</Text>
+            <View>
+              <View style={styles.overviewCont}>
+                <Text style={styles.currency}>N</Text>
+                <Text style={styles.overviewValue}>{addCommas(mocks.overview.networth.total)}</Text>
+              </View>
               <Text style={styles.label}>networth</Text>
             </View>
           </View>

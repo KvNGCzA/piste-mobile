@@ -23,12 +23,25 @@ export default StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20
   },
+  overviewCont: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
   overviewValue: {
     fontSize: 32,
     fontFamily: fonts.redHat,
     fontWeight: '500',
     color: colors.textGrey,
-    textAlign: 'right'
+    textAlign: 'right',
+    letterSpacing: 1,
+  },
+  currency: {
+    fontSize: 17,
+    color: colors.textGrey,
+    top: 6,
+    fontFamily: fonts.redHat,
+    marginRight: 2,
+    fontWeight: '500',
   },
   label: {
     color: colors.primaryColor,
