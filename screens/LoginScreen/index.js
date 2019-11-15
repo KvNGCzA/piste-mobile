@@ -62,7 +62,7 @@ class LoginScreen extends Component {
         <View>
           {this.renderTextInput({
             textContentType: 'emailAddress',
-            onChangeText: text => this.onChange(text, 'email'),
+            onChangeText: text => this.onChange(text.toLowerCase(), 'email'),
             value: email,
             onSubmitEditing: this.focusField,
             blurOnSubmit: false,
