@@ -49,5 +49,35 @@ export default StyleSheet.create({
     fontSize: 14,
     top: -6,
     textAlign: 'right'
+  },
+  homeNavCont: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 32,
+    backgroundColor: colors.cardBack,
+    borderColor: colors.cardBack,
+    borderWidth: 1,
+    borderRadius: 7,
+    height: 39,
+  },
+  homeNavBtn: {
+    backgroundColor: colors.cardBack,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    borderRadius: 7,
+  },
+  homeNavText: {
+    fontSize: 12,
+    color: colors.textGrey,
+    fontFamily: fonts.redHat,
+    textTransform: 'uppercase',
+  },
+  active: {
+    borderColor: '#323232',
+    borderWidth: 1,
   }
 });
