@@ -5,7 +5,8 @@ import styles from './styles';
 import logo from '../../assets/logo-3x.png';
 import Button from '../../commons/Buttons';
 import { isLoggingIn, setGlobal } from '../../store/actions/global';
-
+import reactotron, { asyncStorage } from 'reactotron-react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class LoginScreen extends Component {
   static navigationOptions = {
@@ -51,6 +52,8 @@ class LoginScreen extends Component {
 
   render() {
     const { email, password } = this.state;
+    const { global } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.logoImage}>
@@ -78,7 +81,11 @@ class LoginScreen extends Component {
             label: 'Password',
             otherLabel: 'forgot password?'
           })}
-          <Button value="login" onPress={this.onPress}/>
+          <Button
+            value="login"
+            onPress={this.onPress}
+            isLoading={global.isLoading}
+          />
           <View style={[styles.labelCont, styles.labelCont2]}>
             <Text style={styles.label}>Dont have an account?</Text>
             <Text style={styles.clickable}>Register</Text>

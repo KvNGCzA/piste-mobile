@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, ActivityIndicator, View, Image } from 'react-native';
-// import backButton from '../../../../assets/backarrow.png';
 import styles from './styles';
+import colors from '../colors';
 
 export default class Buttons extends Component {
   selectButton = ({ type, value, style, onPress, isLoading }) => {
@@ -15,7 +15,7 @@ export default class Buttons extends Component {
           >
             <ActivityIndicator
               animating={isLoading || false}
-              color='#fff'
+              color={colors.secondaryColor}
               size='small' 
               style={{ position: 'absolute', right: 40 }}
             />
