@@ -1,6 +1,4 @@
-if(__DEV__) {
-  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'))
-}
+import { DEVELOPMENT } from 'react-native-dotenv';
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { StatusBar } from 'react-native';
@@ -9,7 +7,9 @@ import { store, persistor } from './store';
 import Navigation from './navigation';
 import SplashScreen from 'react-native-splash-screen'
 
-export default function App() {
+if (DEVELOPMENT) import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
+
+export default () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);

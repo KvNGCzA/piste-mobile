@@ -35,7 +35,7 @@ class LoginScreen extends Component {
   onChange = (text, key) => this.setState({ [key]: text });
 
   renderTextInput = (props) => {
-    return(
+    return (
       <View style={styles.inputField}>
         <View style={styles.labelCont}>
           <Text style={styles.label}>{props.label}</Text>
