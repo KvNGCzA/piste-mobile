@@ -66,6 +66,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 7,
     height: 39,
+    marginBottom: 3
   },
   homeNavBtn: {
     backgroundColor: colors.cardBack,
@@ -88,6 +89,7 @@ export default StyleSheet.create({
   },
   body: {
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
+    flex: 1
   },
 });

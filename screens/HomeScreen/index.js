@@ -66,11 +66,8 @@ class HomeScreen extends Component {
           {this.renderHomeNav()}
           <ScrollView
             scrollEnabled
-            pagingEnabled
-            style={styles.slide}
-            showsHorizontalScrollIndicator={false}
-            onScroll={this.handleScroll}
-            scrollEventThrottle={1000}
+            style={{ borderRadius: 7, marginBottom: 10 }}
+            showsVerticalScrollIndicator={false}
           >
             {
             mocks.investments.map((investment) => <InvestmentCard
