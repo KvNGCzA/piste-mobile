@@ -1,30 +1,10 @@
-import React, { Component } from 'react';
-import {
-  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView
-} from 'react-native';
+import React from 'react';
+import { Text, View, ScrollView } from 'react-native';
 import styles from './styles';
-import mocks from '../../screens/HomeScreen/__mock__';
 import { addCommas } from '../../helpers';
-import { colors } from '../../commons';
 import InvestmentCard from '../InvestmentCard';
-import reactotron from 'reactotron-react-native';
 
-const renderActiveTab = (investments) => 
-  <View style={styles.tabParent}>
-    <ScrollView
-      scrollEnabled
-      style={styles.tab}
-      showsVerticalScrollIndicator={false}
-    >
-      {
-        investments.map((investment) => <InvestmentCard
-          investment={investment} key={investment.id}
-        />)
-      }
-    </ScrollView>
-  </View>
-
-const renderMatureTab = (investments) => 
+const renderInvestmentTabs = (investments) => 
   <View style={styles.tabParent}>
     <ScrollView
       scrollEnabled
@@ -80,31 +60,24 @@ const renderOverviewTab = (activeValues) =>
     </View>
   </View>
 
-class AllHomeTabs extends Component {
-  render() {
-    const {
-      handleScroll, activeInvestments, matureInvestments, overview
-    } = this.PaymentResponse;
-    return (
-      <View>
-        <ScrollView
-          style={styles.tabs}
-          scrollEnabled
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
-          scrollEventThrottle={1000}
-          ref={scroller => this.scroller = scroller}
-        >
-          {renderActiveTab(activeInvestments)}
-          {renderMatureTab(matureInvestments)}
-          {renderOverviewTab(overview)}
-        </ScrollView>
-      </View>
-    );
-  }
-}
-
+const AllHomeTabs = ({
+  handleScroll, activeInvestments, matureInvestments, overview, scrollRef
+}) => 
+  <View>
+    <ScrollView
+      style={styles.tabs}
+      scrollEnabled
+      horizontal
+      pagingEnabled
+      showsHorizontalScrollIndicator={false}
+      onScroll={handleScroll}
+      scrollEventThrottle={1000}
+      ref={scrollRef}
+    >
+      {renderInvestmentTabs(activeInvestments)}
+      {renderInvestmentTabs(matureInvestments)}
+      {renderOverviewTab(overview)}
+    </ScrollView>
+  </View>
 
 export default AllHomeTabs;

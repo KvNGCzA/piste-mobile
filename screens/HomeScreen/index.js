@@ -80,123 +80,26 @@ class HomeScreen extends Component {
       </TouchableOpacity>
     </View>
 
-  renderActiveTab = () => 
-    <View style={styles.tabParent}>
-      <ScrollView
-        scrollEnabled
-        style={styles.tab}
-        showsVerticalScrollIndicator={false}
-      >
-        {
-          mocks.investments.map((investment) => <InvestmentCard
-            investment={investment} key={investment.id}
-          />)
-        }
-      </ScrollView>
-    </View>
 
-  renderMatureTab = () => 
-    <View style={styles.tabParent}>
-      <ScrollView
-        scrollEnabled
-        style={styles.tab}
-        showsVerticalScrollIndicator={false}
-      >
-        {
-          mocks.investments.map((investment) => <InvestmentCard
-            investment={investment} key={investment.id}
-          />)
-        }
-      </ScrollView>
-    </View>
-
-  renderOverviewTabContent = ({
-    name, value, currency = true, percentageRoi
-  }) =>
-    <View style={styles.overviewContent} key={name}>
-      <Text style={[styles.text, styles.overviewCategoryName]}>
-        {name}
-      </Text>
-      <View
-        style={styles.overviewCategory}
-      >
-        <Text style={[styles.text, styles.overviewRoi]}>
-          {percentageRoi && `${percentageRoi.toFixed(2)}%`}
-        </Text>
-        <Text style={[styles.text, styles.overviewPrinciple]}>
-          {currency ? 'N' : ''}{addCommas(value)}
-        </Text>
-      </View>
-    </View>
-
-  renderOverviewTab = () =>{
-    const activeValues = [{
-      name: 'principle',
-      value: mocks.overview.active.principle
-    }, {
-      name: 'return on investment',
-      value: mocks.overview.active.roi,
-      percentageRoi: mocks.overview.active.percentageROI
-    }, {
-      name: 'number of investments',
-      value: mocks.overview.active.numberOfInvestments,
-      currency: false
-    }];
-
-    return (
-      <View style={[styles.tabParent, styles.overviewParent]}>
-        <View style={styles.overviewContainer}>
-          <View style={styles.overviewSection}>
-            <Text style={styles.overviewTitle}>active investments</Text>
-            {activeValues.map((value) => this.renderOverviewTabContent(value))}
-          </View>
-          <View style={styles.overviewSection}>
-            <Text style={styles.overviewTitle}>mature investments</Text>
-            {activeValues.map((value) => this.renderOverviewTabContent(value))}
-          </View>
-          <View style={styles.overviewSection}>
-            <Text style={styles.overviewTitle}>projected portfolio</Text>
-            {activeValues.map((value) => this.renderOverviewTabContent(value))}
-          </View>
-        </View>
-      </View>
-    );
-  }
-
-  renderAllTabs = () =>
-    // <AllHomeTabs
-    //   handleScroll={this.handleScroll}
-    //   activeInvestments={mocks.investments}
-    //   matureInvestments={mocks.investments}
-    //   overview={[{
-    //     name: 'principle',
-    //     value: mocks.overview.active.principle
-    //   }, {
-    //     name: 'return on investment',
-    //     value: mocks.overview.active.roi,
-    //     percentageRoi: mocks.overview.active.percentageROI
-    //   }, {
-    //     name: 'number of investments',
-    //     value: mocks.overview.active.numberOfInvestments,
-    //     currency: false
-    //   }]}
-    // />
-    <View>
-      <ScrollView
-        style={styles.tabs}
-        scrollEnabled
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={this.handleScroll}
-        scrollEventThrottle={1000}
-        ref={scroller => this.scroller = scroller}
-      >
-        {this.renderActiveTab()}
-        {this.renderMatureTab()}
-        {this.renderOverviewTab()}
-      </ScrollView>
-    </View>
+  renderAllTabs = ({ investments, overview }) =>
+    <AllHomeTabs
+      handleScroll={this.handleScroll}
+      activeInvestments={investments}
+      matureInvestments={investments}
+      overview={[{
+        name: 'principle',
+        value: overview.active.principle
+      }, {
+        name: 'return on investment',
+        value: overview.active.roi,
+        percentageRoi: overview.active.percentageROI
+      }, {
+        name: 'number of investments',
+        value: overview.active.numberOfInvestments,
+        currency: false
+      }]}
+      scrollRef={scroller => this.scroller = scroller}
+    />
 
   render() {
     return (
@@ -210,7 +113,9 @@ class HomeScreen extends Component {
         {this.renderHeadContent(mocks.overview.networth.total)}
         <View style={styles.body}>
           {this.renderHomeNav()}
-          {this.renderAllTabs()}
+          {this.renderAllTabs({
+            investments: mocks.investments, overview: mocks.overview
+          })}
         </View>
       </View>
     );

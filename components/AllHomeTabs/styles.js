@@ -1,7 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { colors, fonts } from '../../commons';
 import { Platform } from '@unimodules/core';
-import reactotron from 'reactotron-react-native';
 
 
 const { width } = Dimensions.get('window');
@@ -10,9 +9,18 @@ export default StyleSheet.create({
   tabs: {
     flexDirection: 'row',
   },
+  tab: {
+    borderRadius: 7,
+    marginBottom: 10,
+  },
   tabParent: {
     width,
     paddingHorizontal: 20,
+  },
+  text: {
+    fontFamily: fonts.redHat,
+    fontSize: 14,
+    letterSpacing: 1
   },
   overviewContent: {
     flexDirection: 'row',
