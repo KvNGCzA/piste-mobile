@@ -9,10 +9,8 @@ import reactotron from 'reactotron-react-native';
 let errors = {};
 
 export function* logUserIn(action) {
-  reactotron.log(action)
   try {
     const { data: { token, user, overview } } = yield call(axios.post, `${API_BASE_URL}/auth/login`, { ...action.data });
-    reactotron.log(action)
     AsyncStorage.setItem('jwt-token', token);
     yield put(setGlobal({ isLoggedIn: true, user, overview }));
   } catch (error) {
