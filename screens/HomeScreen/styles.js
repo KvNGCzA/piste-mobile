@@ -1,4 +1,3 @@
-import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { colors, fonts } from '../../commons';
 import { Platform } from '@unimodules/core';
