@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { colors, fonts } from '../../commons';
 import { Platform } from '@unimodules/core';
 import reactotron from 'reactotron-react-native';
 
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
@@ -59,14 +61,15 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    width: '100%',
     marginTop: 32,
     backgroundColor: colors.cardBack,
     borderColor: colors.cardBack,
     borderWidth: 1,
     borderRadius: 7,
     height: 39,
-    marginBottom: 3
+    marginBottom: 3,
+    marginLeft: 20,
+    marginRight: 20,
   },
   homeNavBtn: {
     backgroundColor: colors.cardBack,
@@ -88,8 +91,17 @@ export default StyleSheet.create({
     borderWidth: 1,
   },
   body: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    flex: 1
+    flex: 1,
+  },
+  tabs: {
+    flexDirection: 'row',
+  },
+  tab: {
+    borderRadius: 7,
+    marginBottom: 10,
+  },
+  tabParent: {
+    width,
+    paddingHorizontal: 20,
   },
 });
