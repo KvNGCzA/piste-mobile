@@ -1,0 +1,30 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "react",
+    "react-native"
+  ],
+  "parser": "babel-eslint",
+  "env": {
+    "react-native/react-native": true
+  },
+  "rules": {
+    "arrow-parens": 0,
+    "comma-dangle": 1,
+    "import/first": 1,
+    "import/no-named-as-default": 0,
+    "no-plusplus": 0,        
+    "no-unused-expressions": 1,        
+    "no-unused-vars": 1,
+    "no-use-before-define": 0,
+    "prefer-const": 1,
+    "prefer-destructuring": 1,
+    "sort-keys": 1,  
+    "react-native/no-unused-styles": 2,
+    "react-native/split-platform-components": 2,
+    "react-native/no-inline-styles": 2,
+    "react-native/no-color-literals": 2,
+    "react-native/no-raw-text": 2,
+    "react-native/no-single-element-style-arrays": 2
+  }
+}

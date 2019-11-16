@@ -11,10 +11,10 @@ let errors = {};
 export function* logUserIn(action) {
   reactotron.log(action)
   try {
-    const { data: { token, user } } = yield call(axios.post, `${API_BASE_URL}/auth/login`, { ...action.data });
+    const { data: { token, user, overview } } = yield call(axios.post, `${API_BASE_URL}/auth/login`, { ...action.data });
     reactotron.log(action)
     AsyncStorage.setItem('jwt-token', token);
-    yield put(setGlobal({ isLoggedIn: true, user }));
+    yield put(setGlobal({ isLoggedIn: true, user, overview }));
   } catch (error) {
     console.log(error.response, action);
     errors = error.response.data.errors;

@@ -5,7 +5,7 @@ import styles from './styles';
 import logo from '../../assets/logo-3x.png';
 import Button from '../../commons/Buttons';
 import { isLoggingIn, setGlobal } from '../../store/actions/global';
-import reactotron, { asyncStorage } from 'reactotron-react-native';
+import reactotron from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 class LoginScreen extends Component {
@@ -62,7 +62,7 @@ class LoginScreen extends Component {
         <View>
           {this.renderTextInput({
             textContentType: 'emailAddress',
-            onChangeText: text => this.onChange(text, 'email'),
+            onChangeText: text => this.onChange(text.toLowerCase(), 'email'),
             value: email,
             onSubmitEditing: this.focusField,
             blurOnSubmit: false,
