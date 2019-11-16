@@ -4,12 +4,13 @@ import styles from './styles';
 import { addCommas } from '../../helpers';
 import InvestmentCard from '../InvestmentCard';
 
-const renderInvestmentTabs = (investments) => 
+const renderInvestmentTabs = ({ investments, childScrollRef }) => 
   <View style={styles.tabParent}>
     <ScrollView
       scrollEnabled
       style={styles.tab}
       showsVerticalScrollIndicator={false}
+      ref={childScrollRef}
     >
       {
         investments.map((investment) => <InvestmentCard
@@ -61,7 +62,8 @@ const renderOverviewTab = (activeValues) =>
   </View>
 
 const AllHomeTabs = ({
-  handleScroll, activeInvestments, matureInvestments, overview, scrollRef
+  handleScroll, activeInvestments, matureInvestments,
+  overview, parentScrollRef, activeTabScrollRef, matureTabScrollerRef
 }) => 
   <View>
     <ScrollView
@@ -72,10 +74,16 @@ const AllHomeTabs = ({
       showsHorizontalScrollIndicator={false}
       onScroll={handleScroll}
       scrollEventThrottle={1000}
-      ref={scrollRef}
+      ref={parentScrollRef}
     >
-      {renderInvestmentTabs(activeInvestments)}
-      {renderInvestmentTabs(matureInvestments)}
+      {renderInvestmentTabs({
+        investments: activeInvestments,
+        childScrollRef: activeTabScrollRef
+      })}
+      {renderInvestmentTabs({
+        investments: matureInvestments,
+        childScrollRef: matureTabScrollerRef
+      })}
       {renderOverviewTab(overview)}
     </ScrollView>
   </View>

@@ -42,8 +42,12 @@ class HomeScreen extends Component {
   }
 
   scrollToTab = (value) => {
-    const { width } = Dimensions.get('window');
-    this.scroller.scrollTo({ x: width * value, y: 0 });
+    this.parentScroller.scrollTo({
+      x: Dimensions.get('window').width * value,
+      y: 0
+    });
+    this.activeTabScroller.scrollTo({ x: 0, y: 0 });
+    this.matureTabScroller.scrollTo({ x: 0, y: 0 });
   }
 
   renderHeadContent = (totalNetworth) =>
@@ -98,7 +102,9 @@ class HomeScreen extends Component {
         value: overview.active.numberOfInvestments,
         currency: false
       }]}
-      scrollRef={scroller => this.scroller = scroller}
+      parentScrollRef={scroller => this.parentScroller = scroller}
+      activeTabScrollRef={scroller => this.activeTabScroller = scroller}
+      matureTabScrollerRef={scroller => this.matureTabScroller = scroller}
     />
 
   render() {
