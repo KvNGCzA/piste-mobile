@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, Image, TouchableHighlight } from 'react-native';
+import {
+  Text, View, TextInput, Image, TouchableWithoutFeedback
+} from 'react-native';
+import { DEVELOPMENT_EMAIL, DEVELOPMENT_PASSWORD } from 'react-native-dotenv';
 import { connect } from 'react-redux';
 import styles from './styles';
 import logo from '../../assets/logo-3x.png';
@@ -9,7 +12,8 @@ import reactotron from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Errors from '../../commons/Errors';
 
-// AsyncStorage.removeItem('persist:root'), AsyncStorage.setItem('persist:root', JSON.stringify({global: initialState}))}
+// AsyncStorage.removeItem('persist:root');
+// AsyncStorage.setItem('persist:root', JSON.stringify({global: initialState}))
 
 class LoginScreen extends Component {
   static navigationOptions = {
@@ -19,9 +23,10 @@ class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: DEVELOPMENT_EMAIL || '',
+      password: DEVELOPMENT_PASSWORD || '',
       errors: '',
+      isOwner: true
     }
   }
 
@@ -34,7 +39,12 @@ class LoginScreen extends Component {
     const { email, password } = this.state;
     const { isLoggingIn, setGlobal, navigation: { navigate } } = this.props;
     setGlobal({ isLoading: true });
-    isLoggingIn({ email, password, navigate });
+    isLoggingIn({
+      email,
+      password,
+      navigate,
+      setIsOwner: () => this.setState({ isOwner: true })
+    });
   }
 
   focusField = () => this._password.focus()
@@ -56,9 +66,48 @@ class LoginScreen extends Component {
     );
   }
 
+  renderEmailField = ({ user, email }) => 
+    user.id && this.state.isOwner
+    ? <View>
+        <Text style={styles.greeting}>Hi,</Text>
+        <Text style={styles.firstName}>{user.firstName}</Text>
+      </View>
+    : this.renderTextInput({
+      textContentType: 'emailAddress',
+      onChangeText: text => this.onChange(text.toLowerCase(), 'email'),
+      value: user.email || email,
+      onSubmitEditing: this.focusField,
+      blurOnSubmit: false,
+      returnKeyType: 'next',
+      label: 'Email'
+    })
+
+
+  renderRegisterOption = ({ user, isOwner }) => 
+    <TouchableWithoutFeedback
+      onPress={
+        user.id && isOwner
+          ? () => this.setState({ isOwner: false })
+          : () => alert('go to registration page')
+      }
+      accessibilityRole="link"
+    >
+      <View
+        style={[styles.labelCont, styles.labelCont2]}
+      >
+        <Text style={styles.label}>
+        {user.id && isOwner ? `Not ${user.firstName}?`: 'Dont have an account?'}
+        </Text>
+        <Text style={styles.clickable}>
+          {user.id && isOwner ? 'Your Account' : 'Register'}
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
+
   render() {
-    const { email, password } = this.state;
+    const { email, password, isOwner } = this.state;
     const { global } = this.props;
+    const { user } = global;
 
     return (
       <View style={styles.container}>
@@ -66,15 +115,7 @@ class LoginScreen extends Component {
           <Image source={logo} style={styles.logo}/>
         </View>
         <View>
-          {this.renderTextInput({
-            textContentType: 'emailAddress',
-            onChangeText: text => this.onChange(text.toLowerCase(), 'email'),
-            value: email,
-            onSubmitEditing: this.focusField,
-            blurOnSubmit: false,
-            returnKeyType: 'next',
-            label: 'Email'
-          })}
+          {this.renderEmailField({ user, email })}
           {this.renderTextInput({
             ref: input => { this._password = input; },
             textContentType: 'password',
@@ -92,10 +133,7 @@ class LoginScreen extends Component {
             onPress={this.onPress}
             isLoading={global.isLoading}
           />
-          <View style={[styles.labelCont, styles.labelCont2]}>
-            <Text style={styles.label}>Dont have an account?</Text>
-            <Text style={styles.clickable}>Register</Text>
-          </View>
+          {this.renderRegisterOption({ user, isOwner })}
         </View>
         <Errors />
       </View>
