@@ -69,6 +69,13 @@ export default StyleSheet.create({
     marginBottom: 3,
     marginLeft: 20,
     marginRight: 20,
+    shadowColor: "#191919",
+    shadowOffset: {
+      width: 2,
+      height: 1,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
   },
   homeNavBtn: {
     backgroundColor: colors.cardBack,

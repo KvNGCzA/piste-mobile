@@ -26,10 +26,12 @@ export default StyleSheet.create({
     fontFamily: fonts.redHat,
     fontWeight: Platform.OS === 'ios' ? '500' : '400',
     fontSize: 16,
-    marginBottom: 10
   },
   labelCont: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   labelCont2: {
     justifyContent: 'center'
@@ -38,7 +40,6 @@ export default StyleSheet.create({
     color: colors.yellow,
     fontSize: 14,
     marginLeft: 4,
-    top: 3
   },
   logo: {
     height: '100%',
