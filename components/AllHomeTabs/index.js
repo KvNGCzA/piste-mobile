@@ -65,7 +65,7 @@ const AllHomeTabs = ({
   handleScroll, activeInvestments, matureInvestments,
   overview, parentScrollRef, activeTabScrollRef, matureTabScrollerRef
 }) => 
-  <View>
+  <View style={{ height: '85%'}}>
     <ScrollView
       style={styles.tabs}
       scrollEnabled

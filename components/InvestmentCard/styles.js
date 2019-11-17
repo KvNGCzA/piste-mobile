@@ -14,7 +14,14 @@ export default StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     display: 'flex',
-    borderRadius: 7
+    borderRadius: 7,
+    shadowColor: "#191919",
+    shadowOffset: {
+      width: 2,
+      height: 1,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
   },
   investmentTitle: {
     flex: 1,

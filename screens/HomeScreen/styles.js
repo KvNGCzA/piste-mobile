@@ -15,19 +15,23 @@ export default StyleSheet.create({
     width: '100%',
     position: 'absolute',
     top:0,
-    height: 260
+    height: 190
   },
   imageStyle: {
     resizeMode: 'cover',
   },
   content: {
-    marginTop: 135,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     paddingLeft: 20,
-    paddingRight: 20
+    marginTop: 87,
+  },
+  menuButton: {
+    width: 84,
+    height: 84,
+    right: -2
   },
   overviewCont: {
     flexDirection: 'row',
@@ -37,9 +41,10 @@ export default StyleSheet.create({
     fontSize: 32,
     fontFamily: fonts.redHat,
     fontWeight: Platform.OS === 'ios' ? '500' : '400',
-    color: colors.textGrey,
     textAlign: 'right',
-    letterSpacing: 1,
+    letterSpacing: 2,
+    color: colors.primaryColor,
+    fontWeight: 'bold',
   },
   currency: {
     fontSize: 17,
@@ -52,9 +57,10 @@ export default StyleSheet.create({
   label: {
     color: colors.primaryColor,
     fontFamily: fonts.redHat,
-    fontSize: 14,
-    top: -6,
-    textAlign: 'right'
+    fontSize: 10,
+    textAlign: 'left',
+    textTransform: 'uppercase',
+    letterSpacing: 1
   },
   homeNavCont: {
     flexDirection: 'row',
@@ -69,6 +75,13 @@ export default StyleSheet.create({
     marginBottom: 3,
     marginLeft: 20,
     marginRight: 20,
+    shadowColor: "#191919",
+    shadowOffset: {
+      width: 2,
+      height: 1,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
   },
   homeNavBtn: {
     backgroundColor: colors.cardBack,
