@@ -15,13 +15,13 @@ export default StyleSheet.create({
     width: '100%',
     position: 'absolute',
     top:0,
-    height: 260
+    height: 190
   },
   imageStyle: {
     resizeMode: 'cover',
   },
   content: {
-    marginTop: 135,
+    marginTop: 70,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',

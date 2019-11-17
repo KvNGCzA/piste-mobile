@@ -87,7 +87,10 @@ class LoginScreen extends Component {
     <TouchableWithoutFeedback
       onPress={
         user.id && isOwner
-          ? () => this.setState({ isOwner: false })
+          ? () => this.setState(
+              { isOwner: false },
+              () => this.props.setGlobal({ isLoggedIn: false, user: {}, overview: {} })
+            )
           : () => alert('go to registration page')
       }
       accessibilityRole="link"

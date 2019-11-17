@@ -31,13 +31,16 @@ class HomeScreen extends Component {
     const ninetyPercentOfWidth = 0.9 * width;
     if (scrollPosition < ninetyPercentOfWidth) {
       this.setState({ activeTab: 1 });
+      this.scrollTabsToFront();
     } else if (
       scrollPosition >= ninetyPercentOfWidth
       && scrollPosition <= ninetyPercentOfWidth * 2
     ) {
       this.setState({ activeTab: 2 });
+      this.scrollTabsToFront();
     } else {
       this.setState({ activeTab: 3 });
+      this.scrollTabsToFront();
     }
   }
 
@@ -46,6 +49,10 @@ class HomeScreen extends Component {
       x: Dimensions.get('window').width * value,
       y: 0
     });
+    this.scrollTabsToFront();
+  }
+
+  scrollTabsToFront = () => {
     this.activeTabScroller.scrollTo({ x: 0, y: 0 });
     this.matureTabScroller.scrollTo({ x: 0, y: 0 });
   }
