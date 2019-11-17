@@ -6,7 +6,7 @@ import { IS_LOGGING_IN }  from '../constants';
 import { setGlobal } from '../actions/global';
 import reactotron from 'reactotron-react-native';
 
-let errors = '';
+let errors;
 
 export function* logUserIn(action) {
   try {
@@ -14,8 +14,12 @@ export function* logUserIn(action) {
     AsyncStorage.setItem('jwt-token', token);
     yield put(setGlobal({ isLoggedIn: true, user, overview }));
     action.data.navigate('HomeScreen');
+    action.data.setIsOwner();
   } catch (error) {
-    errors = error.response.data.message;
+    console.log(error.response, action)
+    errors = error.response
+      ? error.response.data.message
+      : 'Network error, please try again!';
   }
   yield put(setGlobal({ isLoading: false, errors }));
 }

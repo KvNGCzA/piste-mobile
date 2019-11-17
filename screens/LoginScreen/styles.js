@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { Platform } from '@unimodules/core';
 import { colors, fonts } from '../../commons';
 
 export default StyleSheet.create({
@@ -23,7 +24,7 @@ export default StyleSheet.create({
   label: {
     color: colors.primaryColor,
     fontFamily: fonts.redHat,
-    fontWeight: '500',
+    fontWeight: Platform.OS === 'ios' ? '500' : '400',
     fontSize: 16,
     marginBottom: 10
   },
@@ -48,5 +49,19 @@ export default StyleSheet.create({
     height: 86,
     width: 86,
     marginBottom: 40
+  },
+  greeting: {
+    fontSize: 32,
+    color: colors.primaryColor,
+    fontFamily: fonts.redHat,
+    fontWeight: Platform.OS === 'ios' ? '500' : '400',
+  },
+  firstName: {
+    fontSize: 40,
+    color: colors.primaryColor,
+    fontFamily: fonts.redHat,
+    fontWeight: Platform.OS === 'ios' ? '500' : '400',
+    marginBottom: 30,
+    top: -10
   }
 });

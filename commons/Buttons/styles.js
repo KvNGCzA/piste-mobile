@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../colors';
 import { fonts } from '../fonts';
+import { Platform } from '@unimodules/core';
 
 export default StyleSheet.create({
   bg_home: {
@@ -14,7 +15,7 @@ export default StyleSheet.create({
   },
   bg_home_text: {
     color: colors.secondaryColor,
-    fontWeight: '500',
+    fontWeight: Platform.OS === 'ios' ? '500' : '400',
     fontSize: 16,
     textTransform: 'uppercase',
     fontFamily: fonts.redHat
