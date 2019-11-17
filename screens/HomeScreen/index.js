@@ -22,7 +22,7 @@ class HomeScreen extends Component {
   state = {
     activeTab: 1,
     password: '',
-    errors: {},
+    errors: '',
   }
 
   handleScroll = (e) => {

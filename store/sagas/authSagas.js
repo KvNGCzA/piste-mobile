@@ -6,16 +6,16 @@ import { IS_LOGGING_IN }  from '../constants';
 import { setGlobal } from '../actions/global';
 import reactotron from 'reactotron-react-native';
 
-let errors = {};
+let errors = '';
 
 export function* logUserIn(action) {
   try {
     const { data: { token, user, overview } } = yield call(axios.post, `${API_BASE_URL}/auth/login`, { ...action.data });
     AsyncStorage.setItem('jwt-token', token);
     yield put(setGlobal({ isLoggedIn: true, user, overview }));
+    action.data.navigate('HomeScreen');
   } catch (error) {
-    console.log(error.response, action);
-    errors = error.response.data.errors;
+    errors = error.response.data.message;
   }
   yield put(setGlobal({ isLoading: false, errors }));
 }
