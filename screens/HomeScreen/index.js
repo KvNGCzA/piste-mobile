@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import { isLoggingIn, setGlobal } from '../../store/actions/global';
 import backcurve from '../../assets/backcurve2.png'
-import pass from '../../assets/pass.jpeg'
+import menuButton from '../../assets/menuButton.png'
 import mocks from './__mock__';
 import { addCommas } from '../../helpers';
 import { colors } from '../../commons';
@@ -59,7 +59,7 @@ class HomeScreen extends Component {
 
   renderHeadContent = (totalNetworth) =>
     <View style={styles.content}>
-      <Image source={pass} style={{ width: 100, height: 100, borderRadius: 50 }}/>
+      <Image source={menuButton} style={{ width: 100, height: 100, borderRadius: 50 }}/>
       <View>
         <View style={styles.overviewCont}>
           <Text style={styles.currency}>N</Text>
@@ -67,6 +67,20 @@ class HomeScreen extends Component {
         </View>
         <Text style={styles.label}>networth</Text>
       </View>
+    </View>
+
+  renderHeadContentTwo = (totalNetworth) =>
+    <View style={styles.content}>
+      <View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={[styles.label, { marginRight: 3 }]}>total portfolio</Text>
+          <Text style={[styles.label, { color: colors.cardRed, fontWeight: 'bold' }]}>30% roi</Text>
+        </View>
+        <View style={styles.overviewCont}>
+          <Text style={styles.overviewValue}>N{addCommas(totalNetworth)}</Text>
+        </View>
+      </View>
+      <Image source={menuButton} style={styles.menuButton}/>
     </View>
 
   renderHomeNav = () => 
@@ -123,7 +137,7 @@ class HomeScreen extends Component {
           imageStyle={styles.imageStyle}
           style={styles.backImage}
         />
-        {this.renderHeadContent(mocks.overview.networth.total)}
+        {this.renderHeadContentTwo(mocks.overview.networth.total)}
         <View style={styles.body}>
           {this.renderHomeNav()}
           {this.renderAllTabs({

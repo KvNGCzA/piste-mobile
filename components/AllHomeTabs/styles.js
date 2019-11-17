@@ -59,7 +59,7 @@ export default StyleSheet.create({
   overviewContainer: {
     backgroundColor: colors.cardBack,
     borderRadius: 7,
-    height: '80%'
+    height: '100%'
   },
   overviewSection: {
     flex: 1,
