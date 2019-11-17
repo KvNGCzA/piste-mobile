@@ -12,6 +12,7 @@ import { addCommas } from '../../helpers';
 import { colors } from '../../commons';
 import InvestmentCard from '../../components/InvestmentCard';
 import reactotron from 'reactotron-react-native';
+import AllHomeTabs from '../../components/AllHomeTabs';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -21,7 +22,7 @@ class HomeScreen extends Component {
   state = {
     activeTab: 1,
     password: '',
-    errors: {},
+    errors: '',
   }
 
   handleScroll = (e) => {
@@ -41,17 +42,21 @@ class HomeScreen extends Component {
   }
 
   scrollToTab = (value) => {
-    const { width } = Dimensions.get('window');
-    this.scroller.scrollTo({ x: width * value, y: 0 });
+    this.parentScroller.scrollTo({
+      x: Dimensions.get('window').width * value,
+      y: 0
+    });
+    this.activeTabScroller.scrollTo({ x: 0, y: 0 });
+    this.matureTabScroller.scrollTo({ x: 0, y: 0 });
   }
 
-  renderHeadContent = () =>
+  renderHeadContent = (totalNetworth) =>
     <View style={styles.content}>
       <Image source={pass} style={{ width: 100, height: 100, borderRadius: 50 }}/>
       <View>
         <View style={styles.overviewCont}>
           <Text style={styles.currency}>N</Text>
-          <Text style={styles.overviewValue}>{addCommas(mocks.overview.networth.total)}</Text>
+          <Text style={styles.overviewValue}>{addCommas(totalNetworth)}</Text>
         </View>
         <Text style={styles.label}>networth</Text>
       </View>
@@ -79,59 +84,28 @@ class HomeScreen extends Component {
       </TouchableOpacity>
     </View>
 
-  renderTabs = () =>
-    <View>
-      <ScrollView
-        style={styles.tabs}
-        scrollEnabled
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={this.handleScroll}
-        scrollEventThrottle={1000}
-        ref={scroller => this.scroller = scroller}
-      >
-        <View style={styles.tabParent}>
-          <ScrollView
-            scrollEnabled
-            style={styles.tab}
-            showsVerticalScrollIndicator={false}
-          >
-            {
-              mocks.investments.map((investment) => <InvestmentCard
-                investment={investment} key={investment.id}
-              />)
-            }
-          </ScrollView>
-        </View>
-        <View style={styles.tabParent}>
-          <ScrollView
-            scrollEnabled
-            style={styles.tab}
-            showsVerticalScrollIndicator={false}
-          >
-            {
-              mocks.investments.map((investment) => <InvestmentCard
-                investment={investment} key={investment.id}
-              />)
-            }
-          </ScrollView>
-        </View>
-        <View style={styles.tabParent}>
-          <ScrollView
-            scrollEnabled
-            style={styles.tab}
-            showsVerticalScrollIndicator={false}
-          >
-            {
-              mocks.investments.map((investment) => <InvestmentCard
-                investment={investment} key={investment.id}
-              />)
-            }
-          </ScrollView>
-          </View>
-      </ScrollView>
-    </View>
+
+  renderAllTabs = ({ investments, overview }) =>
+    <AllHomeTabs
+      handleScroll={this.handleScroll}
+      activeInvestments={investments}
+      matureInvestments={investments}
+      overview={[{
+        name: 'principle',
+        value: overview.active.principle
+      }, {
+        name: 'return on investment',
+        value: overview.active.roi,
+        percentageRoi: overview.active.percentageROI
+      }, {
+        name: 'number of investments',
+        value: overview.active.numberOfInvestments,
+        currency: false
+      }]}
+      parentScrollRef={scroller => this.parentScroller = scroller}
+      activeTabScrollRef={scroller => this.activeTabScroller = scroller}
+      matureTabScrollerRef={scroller => this.matureTabScroller = scroller}
+    />
 
   render() {
     return (
@@ -140,11 +114,14 @@ class HomeScreen extends Component {
         <ImageBackground
           source={backcurve}
           imageStyle={styles.imageStyle}
-          style={styles.backImage}/>
-        {this.renderHeadContent()}
+          style={styles.backImage}
+        />
+        {this.renderHeadContent(mocks.overview.networth.total)}
         <View style={styles.body}>
           {this.renderHomeNav()}
-          {this.renderTabs()}
+          {this.renderAllTabs({
+            investments: mocks.investments, overview: mocks.overview
+          })}
         </View>
       </View>
     );

@@ -9,7 +9,11 @@ export default class Buttons extends Component {
       default:
         return(
           <TouchableOpacity
-            style={[styles.bg_home, style, isLoading ? styles.disabled : {}]}
+            style={[
+              styles.bg_home,
+              style,
+              isLoading ? styles.disabled : {}
+            ]}
             onPress={onPress}
             disabled={isLoading}
           >

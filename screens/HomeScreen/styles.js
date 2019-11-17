@@ -92,15 +92,4 @@ export default StyleSheet.create({
   body: {
     flex: 1,
   },
-  tabs: {
-    flexDirection: 'row',
-  },
-  tab: {
-    borderRadius: 7,
-    marginBottom: 10,
-  },
-  tabParent: {
-    width,
-    paddingHorizontal: 20,
-  },
 });

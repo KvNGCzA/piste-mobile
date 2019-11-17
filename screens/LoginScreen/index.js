@@ -7,28 +7,34 @@ import Button from '../../commons/Buttons';
 import { isLoggingIn, setGlobal } from '../../store/actions/global';
 import reactotron from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import Errors from '../../commons/Errors';
+
+// AsyncStorage.removeItem('persist:root'), AsyncStorage.setItem('persist:root', JSON.stringify({global: initialState}))}
 
 class LoginScreen extends Component {
   static navigationOptions = {
     header: null
   };
 
-  state = {
-    email: '',
-    password: '',
-    errors: {},
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      errors: '',
+    }
   }
 
   componentDidMount() {
     const { setGlobal } = this.props;
-    setGlobal({ errors: {} })
+    setGlobal({ errors: '' })
   }
 
   onPress = () => {
     const { email, password } = this.state;
-    const { isLoggingIn, setGlobal } = this.props;
+    const { isLoggingIn, setGlobal, navigation: { navigate } } = this.props;
     setGlobal({ isLoading: true });
-    isLoggingIn({ email, password });
+    isLoggingIn({ email, password, navigate });
   }
 
   focusField = () => this._password.focus()
@@ -91,6 +97,7 @@ class LoginScreen extends Component {
             <Text style={styles.clickable}>Register</Text>
           </View>
         </View>
+        <Errors />
       </View>
     );
   }

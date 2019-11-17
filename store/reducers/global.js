@@ -1,11 +1,5 @@
-import { SET_GLOBAL, SET_ERROR } from '../constants';
-
-const initialState = {
-  isLoading: false,
-  isLoggedIn: false,
-  user: {},
-  errors: {}
-}
+import { SET_GLOBAL } from '../constants';
+import { initialState } from '../initialState';
 
 export default (state = initialState, action) => {
   switch (action.type) {
