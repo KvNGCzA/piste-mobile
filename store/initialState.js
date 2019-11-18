@@ -2,5 +2,9 @@ export const initialState = {
   isLoading: false,
   isLoggedIn: false,
   user: {},
-  errors: ''
+  errors: '',
+  investments: {
+    fetchingInvestments: false,
+    allInvestments: {}
+  }
 }

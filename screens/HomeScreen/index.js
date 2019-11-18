@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView
+  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { isLoggingIn, setGlobal } from '../../store/actions/global';
+import { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments } from '../../store/actions/global';
 import backcurve from '../../assets/backcurve2.png'
 import menuButton from '../../assets/menuButton.png'
 import mocks from './__mock__';
@@ -24,6 +24,13 @@ class HomeScreen extends Component {
     password: '',
     errors: '',
     showModal: false
+  }
+
+  componentDidMount() {
+    const { fetchAllInvestments, isFetchingInvestments } = this.props;
+    reactotron.log('component is mounting');
+    isFetchingInvestments({ isFetching: true });
+    fetchAllInvestments();
   }
 
   handleScroll = (e) => {
@@ -214,6 +221,6 @@ class HomeScreen extends Component {
 
 const mapStateToProps = state => ({ ...state });
 
-const actionCreators = { isLoggingIn, setGlobal };
+const actionCreators = { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments };
 
 export default connect(mapStateToProps, actionCreators)(HomeScreen);
