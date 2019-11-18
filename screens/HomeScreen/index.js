@@ -10,9 +10,9 @@ import menuButton from '../../assets/menuButton.png'
 import mocks from './__mock__';
 import { addCommas } from '../../helpers';
 import { colors } from '../../commons';
-import InvestmentCard from '../../components/InvestmentCard';
 import reactotron from 'reactotron-react-native';
 import AllHomeTabs from '../../components/AllHomeTabs';
+import Modal from '../../components/Modal';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -23,6 +23,7 @@ class HomeScreen extends Component {
     activeTab: 1,
     password: '',
     errors: '',
+    showModal: false
   }
 
   handleScroll = (e) => {
@@ -105,12 +106,14 @@ class HomeScreen extends Component {
       </TouchableOpacity>
     </View>
 
+  toggleModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
   renderAllTabs = ({ investments, overview }) =>
     <AllHomeTabs
       handleScroll={this.handleScroll}
       activeInvestments={investments}
       matureInvestments={investments}
+      viewInvestment={() => this.setState({ showModal: true })}
       overview={[{
         name: 'principle',
         value: overview.active.principle
@@ -127,11 +130,67 @@ class HomeScreen extends Component {
       activeTabScrollRef={scroller => this.activeTabScroller = scroller}
       matureTabScrollerRef={scroller => this.matureTabScroller = scroller}
     />
+   
 
+  renderViewInvestmentModal = () => {
+    return (
+      <Modal visible={this.state.showModal} toggleModal={this.toggleModal}>
+        <View style={styles.investmentInfoParent}>
+
+          <View>
+            <Text style={styles.investmentInfoTitle}>
+              name
+            </Text>
+            <Text style={styles.investmentInfoDetail}>
+              PiggyVest - Chicken Farm
+            </Text>
+          </View>
+
+          <View>
+            <Text style={styles.investmentInfoTitle}>
+              principle
+            </Text>
+            <Text style={styles.investmentInfoDetail}>
+              N{addCommas(100000)}
+            </Text>
+          </View>
+
+          <View>
+            <Text style={styles.investmentInfoTitle}>
+              return on investment
+            </Text>
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginBottom: 17
+            }}>
+              <Text style={[styles.investmentInfoDetail, { marginBottom: 0 }]}>
+                N{addCommas(100000)}
+              </Text>
+              <Text style={{ color: colors.cardRed,  marginLeft: 6, fontWeight: '500', }}>
+                10%
+              </Text>
+            </View>
+          </View>
+
+          <View>
+            <Text style={styles.investmentInfoTitle}>
+              date of maturity
+            </Text>
+            <Text style={styles.investmentInfoDetail}>
+              139d 12h 35m 42s
+            </Text>
+          </View>
+          
+        </View>
+      </Modal>
+    );
+  }
   render() {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor={colors.cardBack} barStyle="light-content" />
+        {this.renderViewInvestmentModal()}
         <ImageBackground
           source={backcurve}
           imageStyle={styles.imageStyle}

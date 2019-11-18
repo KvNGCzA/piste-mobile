@@ -5,9 +5,10 @@ import {
 import styles from './styles';
 import { addCommas } from '../../helpers';
 
-export default ({investment}) =>
+export default ({ investment, viewInvestment }) =>
   <TouchableOpacity
     style={styles.investmentCard}
+    onPress={viewInvestment}
   >
     <View style={styles.investmentTitle}>
       <Text style={styles.investmentTitleText}>
