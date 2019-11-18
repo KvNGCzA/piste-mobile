@@ -12,6 +12,7 @@ export function* logUserIn(action) {
   try {
     const { data: { token, user, overview } } = yield call(axios.post, `${API_BASE_URL}/auth/login`, { ...action.data });
     AsyncStorage.setItem('jwt-token', token);
+    axios.defaults.headers.common['Authorization'] = token;
     yield put(setGlobal({ isLoggedIn: true, user, overview }));
     action.data.navigate('HomeScreen');
     action.data.setIsOwner();
@@ -31,7 +32,6 @@ export function* watchLogUserIn() {
 export function* fetchAllInvestments(action) {
   try {
     const { data: { overview, investments } } = yield call(axios.get, `${API_BASE_URL}/user/myinvestments`);
-    reactotron.log('overview', 'investments', overview, investments)
     yield put(setGlobal({ overview }));
     yield put(setAllInvestments({ investments }));
   } catch (error) {

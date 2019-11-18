@@ -1,4 +1,4 @@
-export const initialState = {
+export const initialGlobalState = {
   isLoading: false,
   isLoggedIn: false,
   user: {},
@@ -6,5 +6,6 @@ export const initialState = {
   investments: {
     fetchingInvestments: false,
     allInvestments: {}
-  }
+  },
+  overview: {}
 }

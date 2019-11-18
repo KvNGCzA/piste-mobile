@@ -23,12 +23,12 @@ class HomeScreen extends Component {
     activeTab: 1,
     password: '',
     errors: '',
-    showModal: false
+    showModal: false,
+    openInvestment: {}
   }
 
   componentDidMount() {
     const { fetchAllInvestments, isFetchingInvestments } = this.props;
-    reactotron.log('component is mounting');
     isFetchingInvestments({ isFetching: true });
     fetchAllInvestments();
   }
@@ -119,12 +119,16 @@ class HomeScreen extends Component {
 
   toggleModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
+  viewInvestment = (investment) => {
+    this.setState({ openInvestment: investment, showModal: true });
+  }
+
   renderAllTabs = ({ investments, overview }) =>
     <AllHomeTabs
       handleScroll={this.handleScroll}
-      activeInvestments={investments}
-      matureInvestments={investments}
-      viewInvestment={() => this.setState({ showModal: true })}
+      activeInvestments={investments.active || []}
+      matureInvestments={investments.mature || []}
+      viewInvestment={this.viewInvestment}
       overview={[{
         name: 'principle',
         value: overview.active.principle
@@ -144,6 +148,7 @@ class HomeScreen extends Component {
    
 
   renderViewInvestmentModal = () => {
+    const { openInvestment: investment } = this.state;
     return (
       <Modal visible={this.state.showModal} toggleModal={this.toggleModal}>
         <View style={styles.investmentInfoParent}>
@@ -153,7 +158,7 @@ class HomeScreen extends Component {
               name
             </Text>
             <Text style={styles.investmentInfoDetail}>
-              PiggyVest - Chicken Farm
+              {investment.name}
             </Text>
           </View>
 
@@ -162,7 +167,7 @@ class HomeScreen extends Component {
               principle
             </Text>
             <Text style={styles.investmentInfoDetail}>
-              N{addCommas(100000)}
+              N{addCommas(investment.amountInvested || 0)}
             </Text>
           </View>
 
@@ -176,10 +181,12 @@ class HomeScreen extends Component {
               marginBottom: 17
             }}>
               <Text style={[styles.investmentInfoDetail, { marginBottom: 0 }]}>
-                N{addCommas(100000)}
+                N{addCommas(
+                  investment.expectedReturnPercentage
+                  ? investment.expectedReturnPercentage/100 * investment.amountInvested : 0)}
               </Text>
               <Text style={{ color: colors.cardRed,  marginLeft: 6, fontWeight: '500', }}>
-                10%
+              {investment.expectedReturnPercentage}%
               </Text>
             </View>
           </View>
@@ -211,7 +218,8 @@ class HomeScreen extends Component {
         <View style={styles.body}>
           {this.renderHomeNav()}
           {this.renderAllTabs({
-            investments: mocks.investments, overview: mocks.overview
+            investments: this.props.global.investments.allInvestments,
+            overview: mocks.overview
           })}
         </View>
       </View>

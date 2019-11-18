@@ -8,7 +8,7 @@ import { addCommas } from '../../helpers';
 export default ({ investment, viewInvestment }) =>
   <TouchableOpacity
     style={styles.investmentCard}
-    onPress={viewInvestment}
+    onPress={() => viewInvestment(investment)}
   >
     <View style={styles.investmentTitle}>
       <Text style={styles.investmentTitleText}>

@@ -1,8 +1,8 @@
 import { SET_GLOBAL, SET_ALL_INVESTMENTS, IS_FETCHING_INVESTMENTS } from '../constants';
-import { initialState } from '../initialState';
+import { initialGlobalState } from '../initialGlobalState';
 import reactotron from 'reactotron-react-native';
 
-export default (state = initialState, action) => {
+export default (state = initialGlobalState, action) => {
   switch (action.type) {
     case SET_GLOBAL:
       return { ...state, ...action.data };

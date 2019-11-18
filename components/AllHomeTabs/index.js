@@ -16,7 +16,9 @@ const renderInvestmentTabs = ({
     >
       {
         investments.map((investment) => <InvestmentCard
-          investment={investment} key={investment.id} viewInvestment={viewInvestment}
+          investment={investment}
+          key={investment.id}
+          viewInvestment={viewInvestment}
         />)
       }
     </ScrollView>
