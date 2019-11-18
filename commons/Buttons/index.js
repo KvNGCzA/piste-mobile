@@ -5,11 +5,13 @@ import colors from '../colors';
 import reactotron from 'reactotron-react-native';
 
 export default class Buttons extends Component {
-  selectButton = ({ type, value, style, onPress, isLoading, actionType }) => {
-    reactotron.log(type)
+  selectButton = ({
+    type, value, style, onPress, isLoading, actionType
+  }) => {
     switch (type) {
       case 'action':
-        return <TouchableOpacity
+        return (
+          <TouchableOpacity
             style={[
               styles.actionButton,
               style,
@@ -28,6 +30,7 @@ export default class Buttons extends Component {
             />
             <Text style={[styles.bg_home_text, { fontSize: 14 }]}>{value}</Text>
           </TouchableOpacity>
+        )
       default:
         return(
           <TouchableOpacity
@@ -47,7 +50,7 @@ export default class Buttons extends Component {
             />
             <Text style={styles.bg_home_text}>{value}</Text>
           </TouchableOpacity>
-        );
+        )
     }
   }
 

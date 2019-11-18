@@ -70,15 +70,19 @@ class HomeScreen extends Component {
       </View>
     </View>
 
-  renderHeadContentTwo = (totalNetworth) =>
+  renderHeadContentTwo = (active) =>
     <View style={styles.content}>
       <View>
         <View style={{ flexDirection: 'row' }}>
           <Text style={[styles.label, { marginRight: 3 }]}>total portfolio</Text>
-          <Text style={[styles.label, { color: colors.cardRed, fontWeight: 'bold' }]}>30% roi</Text>
+          <Text style={[styles.label, { color: colors.cardRed, fontWeight: 'bold' }]}>
+            {active.percentageROI.toFixed(2)}% ROI
+          </Text>
         </View>
         <View style={styles.overviewCont}>
-          <Text style={styles.overviewValue}>N{addCommas(totalNetworth)}</Text>
+          <Text style={styles.overviewValue}>
+            N{addCommas(active.principle + active.roi)}
+          </Text>
         </View>
       </View>
       <Image source={menuButton} style={styles.menuButton}/>
@@ -196,7 +200,7 @@ class HomeScreen extends Component {
           imageStyle={styles.imageStyle}
           style={styles.backImage}
         />
-        {this.renderHeadContentTwo(mocks.overview.networth.total)}
+        {this.renderHeadContentTwo(this.props.global.overview.active)}
         <View style={styles.body}>
           {this.renderHomeNav()}
           {this.renderAllTabs({

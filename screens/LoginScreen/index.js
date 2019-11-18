@@ -23,7 +23,7 @@ class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: DEVELOPMENT_EMAIL || '',
+      email: this.props.global.user.email || DEVELOPMENT_EMAIL || '',
       password: DEVELOPMENT_PASSWORD || '',
       errors: '',
       isOwner: true
