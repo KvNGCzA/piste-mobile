@@ -10,7 +10,7 @@ let errors;
 
 export function* logUserIn(action) {
   try {
-    const { data: { token, user, overview } } = yield call(axios.post, `${API_BASE_URL}/auth/login`, { ...action.data });
+    const { data: { token, user, overview } } = yield call(axios.post, `${API_BASE_URI}/auth/login`, { ...action.data });
     AsyncStorage.setItem('jwt-token', token);
     axios.defaults.headers.common['Authorization'] = token;
     yield put(setGlobal({ isLoggedIn: true, user, overview }));
@@ -31,7 +31,7 @@ export function* watchLogUserIn() {
 
 export function* fetchAllInvestments(action) {
   try {
-    const { data: { overview, investments } } = yield call(axios.get, `${API_BASE_URL}/user/myinvestments`);
+    const { data: { overview, investments } } = yield call(axios.get, `${API_BASE_URI}/user/myinvestments`);
     yield put(setGlobal({ overview }));
     yield put(setAllInvestments({ investments }));
   } catch (error) {
