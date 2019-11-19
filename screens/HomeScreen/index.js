@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity
+  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity, Picker
 } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './styles';
@@ -13,6 +13,7 @@ import { colors } from '../../commons';
 import reactotron from 'reactotron-react-native';
 import AllHomeTabs from '../../components/AllHomeTabs';
 import Modal from '../../components/Modal';
+import CustomTextInput from '../../commons/CustomTextInput';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -24,7 +25,8 @@ class HomeScreen extends Component {
     password: '',
     errors: '',
     showModal: false,
-    openInvestment: {}
+    openInvestment: {},
+    showAddNewInvestmentModal: true
   }
 
   componentDidMount() {
@@ -65,6 +67,48 @@ class HomeScreen extends Component {
     this.matureTabScroller.scrollTo({ x: 0, y: 0 });
   }
 
+  launchAddNewInvestmentModal = () => {
+    this.setState({ showAddNewInvestmentModal: true });
+
+  }
+
+  addNewInvestmentModal = () => {
+    const inputStyle = {
+      borderColor: colors.textGrey,
+      borderWidth: 1,
+      height: 47,
+      color: colors.cardOrange,
+      fontWeight: 'bold',
+    };
+
+    const textStyle = {
+      color: colors.textGrey,
+      fontWeight: '300',
+      textTransform: 'capitalize'
+    }
+
+    return (
+      <Modal positiveActionText="Add" visible={this.state.showAddNewInvestmentModal}>
+        <View>
+          <CustomTextInput {...{
+            label: 'name',
+            textStyle,
+            inputStyle,
+            inputFieldOptions: {
+            }
+          }}/>
+          <CustomTextInput {...{
+            label: 'principle',
+            textStyle,
+            inputStyle,
+            inputFieldOptions: {
+            }
+          }}/>
+        </View>
+      </Modal>
+    )
+  }
+
   renderHeadContent = (totalNetworth) =>
     <View style={styles.content}>
       <Image source={menuButton} style={{ width: 100, height: 100, borderRadius: 50 }}/>
@@ -92,7 +136,9 @@ class HomeScreen extends Component {
           </Text>
         </View>
       </View>
-      <Image source={menuButton} style={styles.menuButton}/>
+      <TouchableOpacity onPress={this.launchAddNewInvestmentModal} >
+        <Image source={menuButton} style={styles.menuButton}/>
+      </TouchableOpacity>
     </View>
 
   renderHomeNav = () => 
@@ -209,6 +255,7 @@ class HomeScreen extends Component {
       <View style={styles.container}>
         <StatusBar backgroundColor={colors.cardBack} barStyle="light-content" />
         {this.renderViewInvestmentModal()}
+        {this.addNewInvestmentModal()}
         <ImageBackground
           source={backcurve}
           imageStyle={styles.imageStyle}

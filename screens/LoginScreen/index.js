@@ -12,6 +12,7 @@ import reactotron from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Errors from '../../commons/Errors';
 import { initialGlobalState } from '../../store/initialGlobalState';
+import CustomTextInput from '../../commons/CustomTextInput';
 
 // AsyncStorage.removeItem('persist:root');
 // AsyncStorage.setItem('persist:root', JSON.stringify({global: initialGlobalState}))
@@ -72,16 +73,20 @@ class LoginScreen extends Component {
     ? <View>
         <Text style={styles.greeting}>Hi,</Text>
         <Text style={styles.firstName}>{user.firstName}</Text>
-      </View>
-    : this.renderTextInput({
-      textContentType: 'emailAddress',
-      onChangeText: text => this.onChange(text.toLowerCase(), 'email'),
-      value: email,
-      onSubmitEditing: this.focusField,
-      blurOnSubmit: false,
-      returnKeyType: 'next',
-      label: 'Email'
-    })
+      </View> : 
+    <CustomTextInput
+      {...{
+        inputFieldOptions: {
+          textContentType: 'emailAddress',
+          onChangeText: text => this.onChange(text.toLowerCase(), 'email'),
+          value: email,
+          onSubmitEditing: this.focusField,
+          blurOnSubmit: false,
+          returnKeyType: 'next',
+        },
+        label: 'Email'
+      }}
+    />
 
 
   renderRegisterOption = ({ user, isOwner }) => 
@@ -120,18 +125,20 @@ class LoginScreen extends Component {
         </View>
         <View>
           {this.renderEmailField({ user, email })}
-          {this.renderTextInput({
-            ref: input => { this._password = input; },
-            textContentType: 'password',
-            onSubmitEditing: this.onPress,
-            onChangeText: text => this.onChange(text, 'password'),
-            value: password,
-            blurOnSubmit: true,
-            returnKeyType: 'send',
-            secureTextEntry: true,
+          <CustomTextInput {...{
+            inputFieldOptions: {
+              ref: input => { this._password = input; },
+              textContentType: 'password',
+              onSubmitEditing: this.onPress,
+              onChangeText: text => this.onChange(text, 'password'),
+              value: password,
+              blurOnSubmit: true,
+              returnKeyType: 'send',
+              secureTextEntry: true,
+            },
             label: 'Password',
             otherLabel: 'forgot password?'
-          })}
+          }}/>
           <Button
             value="login"
             onPress={this.onPress}

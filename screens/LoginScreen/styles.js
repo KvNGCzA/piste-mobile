@@ -10,6 +10,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  inputField: {
+    marginBottom: 25
+  },
   input: {
     borderColor: colors.primaryColor,
     borderWidth: 1,
@@ -17,9 +20,6 @@ export default StyleSheet.create({
     height: 47,
     color: colors.primaryColor,
     padding: 10
-  },
-  inputField: {
-    marginBottom: 25
   },
   label: {
     color: colors.primaryColor,

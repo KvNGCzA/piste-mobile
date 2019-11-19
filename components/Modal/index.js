@@ -15,7 +15,11 @@ export default class Modal extends Component {
         <View style={styles.modalContentWrapper}>
           {this.props.children}
           <View style={styles.buttonsContainer}>
-            <Buttons type="action" value="edit"/>
+            <Buttons
+              type="action"
+              value={this.props.positiveActionText || "edit"}
+              onPress={this.props.positiveActionHandler}
+            />
             <Buttons
               type="action"
               actionType="negative"
