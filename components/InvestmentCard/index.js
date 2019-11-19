@@ -22,7 +22,7 @@ export default ({ investment, viewInvestment }) =>
       </View>
       <View style={styles.countDownTimer}>
         <Text style={styles.countDownTimerText}>
-          {investment.returnDate}
+          {`${investment.status === 'mature' ? 'paid out' : ''}`} {new Date(investment.returnDate).toDateString()}
         </Text>
       </View>
     </View>

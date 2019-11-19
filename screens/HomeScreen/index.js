@@ -196,7 +196,7 @@ class HomeScreen extends Component {
               date of maturity
             </Text>
             <Text style={styles.investmentInfoDetail}>
-              139d 12h 35m 42s
+            {investment.status === 'mature' ? 'paid out ' : null}{new Date(investment.returnDate).toDateString()}
             </Text>
           </View>
           
