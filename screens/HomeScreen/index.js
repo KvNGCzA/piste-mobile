@@ -4,16 +4,24 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments } from '../../store/actions/global';
+import actions from '../../store/actions/global';
 import backcurve from '../../assets/backcurve2.png'
 import menuButton from '../../assets/menuButton.png'
 import mocks from './__mock__';
 import { addCommas } from '../../helpers';
 import { colors, fonts } from '../../commons';
 import AllHomeTabs from '../../components/AllHomeTabs';
-import Modal from '../../components/Modal';
 import AddNewInvestmentModal from './AddNewInvestmentModal';
 import ViewInvestmentModal from './ViewInvestmentModal';
+import reactotron from 'reactotron-react-native';
+
+const defaultNewInvestment = {
+  name: '',
+  amountInvested: null,
+  roiType: "percentage",
+  roiValue: null,
+  returnDate: ''
+};
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -26,23 +34,25 @@ class HomeScreen extends Component {
     errors: '',
     showModal: false,
     openInvestment: {},
-    showAddNewInvestmentModal: true,
+    showAddNewInvestmentModal: false,
     dateInput: '',
-    newInvestment: {
-      name: "",
-      amountInvested: null,
-      roi: {
-        type: "percentage",
-        value: null
-      },
-      returnDate: ""
-    }
+    newInvestment: { ...defaultNewInvestment }
   }
 
   componentDidMount() {
     const { fetchAllInvestments, isFetchingInvestments } = this.props;
     isFetchingInvestments({ isFetching: true });
     fetchAllInvestments();
+  }
+
+  setNewInvestmentFormValues = (value, key) => {
+    this.setState(prevState => ({
+      ...prevState,
+      newInvestment: {
+        ...prevState.newInvestment,
+        [key]: value
+      }
+    }))
   }
 
   handleScroll = (e) => {
@@ -77,9 +87,8 @@ class HomeScreen extends Component {
     this.matureTabScroller.scrollTo({ x: 0, y: 0 });
   }
 
-  launchAddNewInvestmentModal = () => {
-    this.setState({ showAddNewInvestmentModal: true });
-
+  toggleAddNewInvestmentModal = () => {
+    this.setState((prevState) => ({ ...prevState, showAddNewInvestmentModal: !prevState.showAddNewInvestmentModal }));
   }
 
   renderHeadContent = (totalNetworth) =>
@@ -109,7 +118,7 @@ class HomeScreen extends Component {
           </Text>
         </View>
       </View>
-      <TouchableOpacity onPress={this.launchAddNewInvestmentModal} >
+      <TouchableOpacity onPress={this.toggleAddNewInvestmentModal} >
         <Image source={menuButton} style={styles.menuButton}/>
       </TouchableOpacity>
     </View>
@@ -139,6 +148,19 @@ class HomeScreen extends Component {
   toggleModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
   viewInvestment = (investment) => this.setState({ openInvestment: investment, showModal: true });
+
+  addNewInvestmentHandler = () => {
+    const { newInvestment } =this.state;
+    const investment = { ...newInvestment };
+    investment.roi = {};
+    investment.roi.type = investment.roiType;
+    investment.roi.value = investment.roiValue;
+    this.props.addNewInvestment({
+      investment,
+      toggleAddNewInvestmentModal: this.toggleAddNewInvestmentModal
+    });
+    () => this.setState({ newInvestment: { ...defaultNewInvestment } })
+  }
 
   renderAllTabs = ({ investments, overview }) =>
     <AllHomeTabs
@@ -175,10 +197,11 @@ class HomeScreen extends Component {
         <AddNewInvestmentModal
           visible={this.state.showAddNewInvestmentModal}
           toggleModal={
-            () => this.setState({ showAddNewInvestmentModal: false })
+            () => this.setState({ showAddNewInvestmentModal: false, newInvestment: { ...defaultNewInvestment } })
           }
-          onDateChange={dateInput => this.setState({ dateInput })}
-          dateValue={this.state.dateInput}
+          positiveActionHandler={this.addNewInvestmentHandler}
+          values={this.state.newInvestment}
+          setNewInvestmentFormValues={this.setNewInvestmentFormValues}
         />
         <ImageBackground
           source={backcurve}
@@ -198,8 +221,4 @@ class HomeScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({ ...state });
-
-const actionCreators = { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments };
-
-export default connect(mapStateToProps, actionCreators)(HomeScreen);
+export default connect(state => ({ ...state }), actions)(HomeScreen);

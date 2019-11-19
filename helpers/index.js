@@ -1,3 +1,5 @@
+import reactotron from "reactotron-react-native";
+
 export const addCommas = (value) => {
   if (value.length < 4) return value;
   const stringifiedValue = `${value}`;
@@ -23,7 +25,15 @@ export const addCommas = (value) => {
   return result;
 };
 
-export const calculateRoi = ({ expectedReturnPercentage, amountInvested }) => {
-  const roi = expectedReturnPercentage/100 * amountInvested;
-  return amountInvested + roi;
+export const calculateRoi = ({ roiValue, roiType, amountInvested }) => {
+  if (roiValue && roiType && amountInvested) {
+    if (roiType === 'percentage') {
+      const roi = (roiValue/100) * amountInvested;
+      return `N${addCommas(Math.floor(roi))}`;
+    }
+    let result = (roiValue * 100)/amountInvested
+    result = Number.isInteger(result) ? result : result.toFixed(2);
+    return `${result}%`;
+  }
+  return null;
 };

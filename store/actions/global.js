@@ -1,4 +1,7 @@
-import { SET_GLOBAL, IS_LOGGING_IN, SET_ALL_INVESTMENTS, FETCH_ALL_INVESTMENTS, IS_FETCHING_INVESTMENTS } from '../constants';
+import {
+  SET_GLOBAL, IS_LOGGING_IN, SET_ALL_INVESTMENTS, FETCH_ALL_INVESTMENTS, IS_FETCHING_INVESTMENTS,
+  ADD_NEW_INVESTMENT, ATTACH_NEW_INVESTMENT
+} from '../constants';
 
 export const setGlobal = data => ({
   type: SET_GLOBAL,
@@ -23,3 +26,23 @@ export const isFetchingInvestments = data => ({
   type: IS_FETCHING_INVESTMENTS,
   data
 });
+
+export const addNewInvestment = data => ({
+  type: ADD_NEW_INVESTMENT,
+  data
+});
+
+export const attachNewInvestment = data => ({
+  type: ATTACH_NEW_INVESTMENT,
+  data
+});
+
+export default {
+  setGlobal,
+  isLoggingIn,
+  fetchAllInvestments,
+  setAllInvestments,
+  isFetchingInvestments,
+  addNewInvestment,
+  attachNewInvestment
+};

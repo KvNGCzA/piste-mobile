@@ -6,6 +6,7 @@ import { colors, fonts } from '../../commons';
 import Modal from '../../components/Modal';
 import CustomTextInput from '../../commons/CustomTextInput';
 import ReturnOnInvestmentInput from './ReturnOnInvestmentInput';
+import Errors from '../../commons/Errors';
 
 
 const inputStyle = {
@@ -21,26 +22,29 @@ const textStyle = {
   color: colors.textGrey,
   fontWeight: '300',
   textTransform: 'capitalize',
-}
+};
 
-export default ({ toggleModal, visible, onDateChange, dateValue }) => 
+export default ({ toggleModal, visible, values, setNewInvestmentFormValues, positiveActionHandler }) => 
   <Modal
     positiveActionText="Add"
     visible={visible}
     headerTitle="add investment"
     toggleModal={toggleModal}
+    positiveActionHandler={positiveActionHandler}
   >
     <View>
-        <View>
-          <CustomTextInput {...{
-            label: 'name',
-            textStyle,
-            inputStyle,
-            inputFieldOptions: {
-              returnKeyType: 'next',
-            }
-          }}/>
-        </View>
+      <View>
+        <CustomTextInput {...{
+          label: 'name',
+          textStyle,
+          inputStyle,
+          inputFieldOptions: {
+            returnKeyType: 'next',
+            onChangeText: (value) => setNewInvestmentFormValues(value, 'name'),
+            value: values.name
+          }
+        }}/>
+      </View>
       <View>
         <CustomTextInput {...{
           label: 'principle',
@@ -48,10 +52,13 @@ export default ({ toggleModal, visible, onDateChange, dateValue }) =>
           inputStyle,
           inputFieldOptions: {
             returnKeyType: 'next',
+            onChangeText: (value) => setNewInvestmentFormValues(value, 'amountInvested'),
+            value: values.amountInvested,
+            keyboardType: 'numeric'
           }
         }}/>
       </View>
-      <ReturnOnInvestmentInput />
+      <ReturnOnInvestmentInput values={values} setNewInvestmentFormValues={setNewInvestmentFormValues}/>
     </View>
     <View style={{ marginBottom: 25 }}>
       <View style={styles.labelCont}>
@@ -65,9 +72,9 @@ export default ({ toggleModal, visible, onDateChange, dateValue }) =>
         </Text>
       </View>
       <DatePicker
-        date={dateValue}
-        onDateChange={onDateChange}
-        format='MM-DD-YYYY'
+        date={values.returnDate}
+        onDateChange={value => setNewInvestmentFormValues(value, 'returnDate')}
+        format='MM/DD/YYYY'
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         placeholder=" "

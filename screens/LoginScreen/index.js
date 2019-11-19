@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import logo from '../../assets/logo-3x.png';
 import Button from '../../commons/Buttons';
-import { isLoggingIn, setGlobal } from '../../store/actions/global';
+import actions from '../../store/actions/global';
 import reactotron from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Errors from '../../commons/Errors';
@@ -152,8 +152,4 @@ class LoginScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({ ...state });
-
-const actionCreators = { isLoggingIn, setGlobal };
-
-export default connect(mapStateToProps, actionCreators)(LoginScreen);
+export default connect(state => ({ ...state }), actions)(LoginScreen);

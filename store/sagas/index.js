@@ -1,9 +1,10 @@
 import { all } from 'redux-saga/effects';
-import { watchLogUserIn, watchFetchAllInvestmens } from './authSagas';
+import { watchLogUserIn, watchFetchAllInvestmens, watchAddNewInvestmens } from './authSagas';
 function* rootSaga() {
   yield all([
     watchLogUserIn(),
-    watchFetchAllInvestmens()
+    watchFetchAllInvestmens(),
+    watchAddNewInvestmens()
   ]);
 }
 
