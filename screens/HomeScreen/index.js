@@ -4,15 +4,24 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments } from '../../store/actions/global';
+import actions from '../../store/actions/global';
 import backcurve from '../../assets/backcurve2.png'
 import menuButton from '../../assets/menuButton.png'
 import mocks from './__mock__';
 import { addCommas } from '../../helpers';
-import { colors } from '../../commons';
-import reactotron from 'reactotron-react-native';
+import { colors, fonts } from '../../commons';
 import AllHomeTabs from '../../components/AllHomeTabs';
-import Modal from '../../components/Modal';
+import AddNewInvestmentModal from './AddNewInvestmentModal';
+import ViewInvestmentModal from './ViewInvestmentModal';
+import reactotron from 'reactotron-react-native';
+
+const defaultNewInvestment = {
+  name: '',
+  amountInvested: null,
+  roiType: "percentage",
+  roiValue: null,
+  returnDate: ''
+};
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -24,13 +33,26 @@ class HomeScreen extends Component {
     password: '',
     errors: '',
     showModal: false,
-    openInvestment: {}
+    openInvestment: {},
+    showAddNewInvestmentModal: false,
+    dateInput: '',
+    newInvestment: { ...defaultNewInvestment }
   }
 
   componentDidMount() {
     const { fetchAllInvestments, isFetchingInvestments } = this.props;
     isFetchingInvestments({ isFetching: true });
     fetchAllInvestments();
+  }
+
+  setNewInvestmentFormValues = (value, key) => {
+    this.setState(prevState => ({
+      ...prevState,
+      newInvestment: {
+        ...prevState.newInvestment,
+        [key]: value
+      }
+    }))
   }
 
   handleScroll = (e) => {
@@ -65,6 +87,10 @@ class HomeScreen extends Component {
     this.matureTabScroller.scrollTo({ x: 0, y: 0 });
   }
 
+  toggleAddNewInvestmentModal = () => {
+    this.setState((prevState) => ({ ...prevState, showAddNewInvestmentModal: !prevState.showAddNewInvestmentModal }));
+  }
+
   renderHeadContent = (totalNetworth) =>
     <View style={styles.content}>
       <Image source={menuButton} style={{ width: 100, height: 100, borderRadius: 50 }}/>
@@ -92,7 +118,9 @@ class HomeScreen extends Component {
           </Text>
         </View>
       </View>
-      <Image source={menuButton} style={styles.menuButton}/>
+      <TouchableOpacity onPress={this.toggleAddNewInvestmentModal} >
+        <Image source={menuButton} style={styles.menuButton}/>
+      </TouchableOpacity>
     </View>
 
   renderHomeNav = () => 
@@ -119,8 +147,19 @@ class HomeScreen extends Component {
 
   toggleModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
-  viewInvestment = (investment) => {
-    this.setState({ openInvestment: investment, showModal: true });
+  viewInvestment = (investment) => this.setState({ openInvestment: investment, showModal: true });
+
+  addNewInvestmentHandler = () => {
+    const { newInvestment } =this.state;
+    const investment = { ...newInvestment };
+    investment.roi = {};
+    investment.roi.type = investment.roiType;
+    investment.roi.value = investment.roiValue;
+    this.props.addNewInvestment({
+      investment,
+      toggleAddNewInvestmentModal: this.toggleAddNewInvestmentModal
+    });
+    () => this.setState({ newInvestment: { ...defaultNewInvestment } })
   }
 
   renderAllTabs = ({ investments, overview }) =>
@@ -145,70 +184,25 @@ class HomeScreen extends Component {
       activeTabScrollRef={scroller => this.activeTabScroller = scroller}
       matureTabScrollerRef={scroller => this.matureTabScroller = scroller}
     />
-   
 
-  renderViewInvestmentModal = () => {
-    const { openInvestment: investment } = this.state;
-    return (
-      <Modal visible={this.state.showModal} toggleModal={this.toggleModal}>
-        <View style={styles.investmentInfoParent}>
-
-          <View>
-            <Text style={styles.investmentInfoTitle}>
-              name
-            </Text>
-            <Text style={styles.investmentInfoDetail}>
-              {investment.name}
-            </Text>
-          </View>
-
-          <View>
-            <Text style={styles.investmentInfoTitle}>
-              principle
-            </Text>
-            <Text style={styles.investmentInfoDetail}>
-              N{addCommas(investment.amountInvested || 0)}
-            </Text>
-          </View>
-
-          <View>
-            <Text style={styles.investmentInfoTitle}>
-              return on investment
-            </Text>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 17
-            }}>
-              <Text style={[styles.investmentInfoDetail, { marginBottom: 0 }]}>
-                N{addCommas(
-                  investment.expectedReturnPercentage
-                  ? investment.expectedReturnPercentage/100 * investment.amountInvested : 0)}
-              </Text>
-              <Text style={{ color: colors.cardRed,  marginLeft: 6, fontWeight: '500', }}>
-              {investment.expectedReturnPercentage}%
-              </Text>
-            </View>
-          </View>
-
-          <View>
-            <Text style={styles.investmentInfoTitle}>
-              date of maturity
-            </Text>
-            <Text style={styles.investmentInfoDetail}>
-            {investment.status === 'mature' ? 'paid out ' : null}{new Date(investment.returnDate).toDateString()}
-            </Text>
-          </View>
-          
-        </View>
-      </Modal>
-    );
-  }
   render() {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor={colors.cardBack} barStyle="light-content" />
-        {this.renderViewInvestmentModal()}
+        <ViewInvestmentModal
+          showModal={this.state.showModal}
+          toggleModal={this.toggleModal}
+          investment={this.state.openInvestment}
+        />
+        <AddNewInvestmentModal
+          visible={this.state.showAddNewInvestmentModal}
+          toggleModal={
+            () => this.setState({ showAddNewInvestmentModal: false, newInvestment: { ...defaultNewInvestment } })
+          }
+          positiveActionHandler={this.addNewInvestmentHandler}
+          values={this.state.newInvestment}
+          setNewInvestmentFormValues={this.setNewInvestmentFormValues}
+        />
         <ImageBackground
           source={backcurve}
           imageStyle={styles.imageStyle}
@@ -227,8 +221,4 @@ class HomeScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({ ...state });
-
-const actionCreators = { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments };
-
-export default connect(mapStateToProps, actionCreators)(HomeScreen);
+export default connect(state => ({ ...state }), actions)(HomeScreen);

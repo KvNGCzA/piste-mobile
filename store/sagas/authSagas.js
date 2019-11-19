@@ -2,8 +2,8 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import { API_BASE_URI, API_BASE_URL } from 'react-native-dotenv';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import { IS_LOGGING_IN, FETCH_ALL_INVESTMENTS }  from '../constants';
-import { setGlobal, setAllInvestments, isFetchingInvestments } from '../actions/global';
+import { IS_LOGGING_IN, FETCH_ALL_INVESTMENTS, ADD_NEW_INVESTMENT }  from '../constants';
+import { setGlobal, setAllInvestments, isFetchingInvestments, attachNewInvestment } from '../actions/global';
 import reactotron from 'reactotron-react-native';
 
 let errors;
@@ -46,4 +46,25 @@ export function* fetchAllInvestments(action) {
 
 export function* watchFetchAllInvestmens() {
   yield takeLatest(FETCH_ALL_INVESTMENTS, fetchAllInvestments);
+}
+
+export function* addNewInvestment(action) {
+  try {
+    const { data: { overview, investment } } = yield call(axios.post, `${API_BASE_URL}/user/investment`, action.data.investment);
+    reactotron.log({ overview, investment })
+    yield put(setGlobal({ overview }));
+    yield put(attachNewInvestment(investment))
+    action.data.toggleAddNewInvestmentModal();
+  } catch (error) {
+    reactotron.log(error, action)
+    errors = error.response
+      ? error.response.data.message
+      : 'Network error, please try again!';
+  }
+  yield put(isFetchingInvestments({ isFetching: false }));
+  yield put(setGlobal({ errors }));
+}
+
+export function* watchAddNewInvestmens() {
+  yield takeLatest(ADD_NEW_INVESTMENT, addNewInvestment);
 }

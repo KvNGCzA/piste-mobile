@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { colors, fonts } from '../../commons';
-import { Platform } from '@unimodules/core';
 
 const { width } = Dimensions.get('window');
 
@@ -21,7 +20,7 @@ export default StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     padding: 30,
-    width: '70%'
+    width: '85%'
   },
   buttonsContainer: {
     width: '100%',

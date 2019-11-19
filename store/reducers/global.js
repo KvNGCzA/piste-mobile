@@ -1,4 +1,4 @@
-import { SET_GLOBAL, SET_ALL_INVESTMENTS, IS_FETCHING_INVESTMENTS } from '../constants';
+import { SET_GLOBAL, SET_ALL_INVESTMENTS, IS_FETCHING_INVESTMENTS, ATTACH_NEW_INVESTMENT } from '../constants';
 import { initialGlobalState } from '../initialGlobalState';
 import reactotron from 'reactotron-react-native';
 
@@ -15,13 +15,27 @@ export default (state = initialGlobalState, action) => {
         }
       };
     case IS_FETCHING_INVESTMENTS:
-        return {
-          ...state,
-          investments: {
-            ...state.investments,
-            isFetching: action.data.isFetching,
+      return {
+        ...state,
+        investments: {
+          ...state.investments,
+          isFetching: action.data.isFetching,
+        }
+      }
+    case ATTACH_NEW_INVESTMENT:
+      return {
+        ...state,
+        investments: {
+          ...state.investments,
+          allInvestments: {
+            ...state.investments.allInvestments,
+            [action.data.status]: [
+              action.data,
+              ...state.investments.allInvestments[action.data.status]
+            ]
           }
         }
+      }
     default:
       return state;
   }
