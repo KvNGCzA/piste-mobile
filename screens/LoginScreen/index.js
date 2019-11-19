@@ -11,9 +11,10 @@ import { isLoggingIn, setGlobal } from '../../store/actions/global';
 import reactotron from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Errors from '../../commons/Errors';
+import { initialGlobalState } from '../../store/initialGlobalState';
 
 // AsyncStorage.removeItem('persist:root');
-// AsyncStorage.setItem('persist:root', JSON.stringify({global: initialState}))
+// AsyncStorage.setItem('persist:root', JSON.stringify({global: initialGlobalState}))
 
 class LoginScreen extends Component {
   static navigationOptions = {
@@ -23,7 +24,7 @@ class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: DEVELOPMENT_EMAIL || '',
+      email: this.props.global.user.email || '',
       password: DEVELOPMENT_PASSWORD || '',
       errors: '',
       isOwner: true
@@ -75,7 +76,7 @@ class LoginScreen extends Component {
     : this.renderTextInput({
       textContentType: 'emailAddress',
       onChangeText: text => this.onChange(text.toLowerCase(), 'email'),
-      value: user.email || email,
+      value: email,
       onSubmitEditing: this.focusField,
       blurOnSubmit: false,
       returnKeyType: 'next',
@@ -88,8 +89,8 @@ class LoginScreen extends Component {
       onPress={
         user.id && isOwner
           ? () => this.setState(
-              { isOwner: false },
-              () => this.props.setGlobal({ isLoggedIn: false, user: {}, overview: {}, isLoading: false })
+              { email: '', password: '', isOwner: false },
+              () => this.props.setGlobal(initialGlobalState)
             )
           : () => alert('go to registration page')
       }

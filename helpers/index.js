@@ -22,3 +22,8 @@ export const addCommas = (value) => {
   }
   return result;
 };
+
+export const calculateRoi = ({ expectedReturnPercentage, amountInvested }) => {
+  const roi = expectedReturnPercentage/100 * amountInvested;
+  return amountInvested + roi;
+};

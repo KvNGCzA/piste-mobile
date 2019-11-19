@@ -105,4 +105,22 @@ export default StyleSheet.create({
   body: {
     flex: 1,
   },
+  investmentInfoParent: {
+    marginBottom: 35
+  },
+  investmentInfoTitle: {
+    color: colors.textGrey,
+    fontFamily: fonts.redHat,
+    textTransform: 'capitalize',
+    fontSize: 14,
+  },
+  investmentInfoDetail: {
+    color: colors.cardOrange,
+    fontFamily: fonts.redHat,
+    fontWeight: '500',
+    textTransform: 'capitalize',
+    marginBottom: 17,
+    fontSize: 16,
+    letterSpacing: 1
+  }
 });

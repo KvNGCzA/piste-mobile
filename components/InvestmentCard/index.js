@@ -5,9 +5,10 @@ import {
 import styles from './styles';
 import { addCommas } from '../../helpers';
 
-export default ({investment}) =>
+export default ({ investment, viewInvestment }) =>
   <TouchableOpacity
     style={styles.investmentCard}
+    onPress={() => viewInvestment(investment)}
   >
     <View style={styles.investmentTitle}>
       <Text style={styles.investmentTitleText}>
@@ -21,7 +22,7 @@ export default ({investment}) =>
       </View>
       <View style={styles.countDownTimer}>
         <Text style={styles.countDownTimerText}>
-          {investment.returnDate}
+          {`${investment.status === 'mature' ? 'paid out' : ''}`} {new Date(investment.returnDate).toDateString()}
         </Text>
       </View>
     </View>

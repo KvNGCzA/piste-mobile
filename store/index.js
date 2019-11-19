@@ -18,8 +18,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middleware = composeEnhancers(applyMiddleware(sagaMiddleware));
 const store = createStore(persistedReducer, middleware);
 const persistor = persistStore(store);
-AsyncStorage.getItem('jwt-token')
-  .then(token => axios.defaults.headers.common['Authorization'] = token);
 
 sagaMiddleware.run(rootSaga);
 

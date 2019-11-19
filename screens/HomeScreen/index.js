@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView
+  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { isLoggingIn, setGlobal } from '../../store/actions/global';
+import { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments } from '../../store/actions/global';
 import backcurve from '../../assets/backcurve2.png'
 import menuButton from '../../assets/menuButton.png'
 import mocks from './__mock__';
 import { addCommas } from '../../helpers';
 import { colors } from '../../commons';
-import InvestmentCard from '../../components/InvestmentCard';
 import reactotron from 'reactotron-react-native';
 import AllHomeTabs from '../../components/AllHomeTabs';
+import Modal from '../../components/Modal';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -23,6 +23,14 @@ class HomeScreen extends Component {
     activeTab: 1,
     password: '',
     errors: '',
+    showModal: false,
+    openInvestment: {}
+  }
+
+  componentDidMount() {
+    const { fetchAllInvestments, isFetchingInvestments } = this.props;
+    isFetchingInvestments({ isFetching: true });
+    fetchAllInvestments();
   }
 
   handleScroll = (e) => {
@@ -69,15 +77,19 @@ class HomeScreen extends Component {
       </View>
     </View>
 
-  renderHeadContentTwo = (totalNetworth) =>
+  renderHeadContentTwo = (active) =>
     <View style={styles.content}>
       <View>
         <View style={{ flexDirection: 'row' }}>
           <Text style={[styles.label, { marginRight: 3 }]}>total portfolio</Text>
-          <Text style={[styles.label, { color: colors.cardRed, fontWeight: 'bold' }]}>30% roi</Text>
+          <Text style={[styles.label, { color: colors.cardRed, fontWeight: 'bold' }]}>
+            {active.percentageROI.toFixed(2)}% ROI
+          </Text>
         </View>
         <View style={styles.overviewCont}>
-          <Text style={styles.overviewValue}>N{addCommas(totalNetworth)}</Text>
+          <Text style={styles.overviewValue}>
+            N{addCommas(active.principle + active.roi)}
+          </Text>
         </View>
       </View>
       <Image source={menuButton} style={styles.menuButton}/>
@@ -105,12 +117,18 @@ class HomeScreen extends Component {
       </TouchableOpacity>
     </View>
 
+  toggleModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
+
+  viewInvestment = (investment) => {
+    this.setState({ openInvestment: investment, showModal: true });
+  }
 
   renderAllTabs = ({ investments, overview }) =>
     <AllHomeTabs
       handleScroll={this.handleScroll}
-      activeInvestments={investments}
-      matureInvestments={investments}
+      activeInvestments={investments.active || []}
+      matureInvestments={investments.mature || []}
+      viewInvestment={this.viewInvestment}
       overview={[{
         name: 'principle',
         value: overview.active.principle
@@ -127,21 +145,81 @@ class HomeScreen extends Component {
       activeTabScrollRef={scroller => this.activeTabScroller = scroller}
       matureTabScrollerRef={scroller => this.matureTabScroller = scroller}
     />
+   
 
+  renderViewInvestmentModal = () => {
+    const { openInvestment: investment } = this.state;
+    return (
+      <Modal visible={this.state.showModal} toggleModal={this.toggleModal}>
+        <View style={styles.investmentInfoParent}>
+
+          <View>
+            <Text style={styles.investmentInfoTitle}>
+              name
+            </Text>
+            <Text style={styles.investmentInfoDetail}>
+              {investment.name}
+            </Text>
+          </View>
+
+          <View>
+            <Text style={styles.investmentInfoTitle}>
+              principle
+            </Text>
+            <Text style={styles.investmentInfoDetail}>
+              N{addCommas(investment.amountInvested || 0)}
+            </Text>
+          </View>
+
+          <View>
+            <Text style={styles.investmentInfoTitle}>
+              return on investment
+            </Text>
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginBottom: 17
+            }}>
+              <Text style={[styles.investmentInfoDetail, { marginBottom: 0 }]}>
+                N{addCommas(
+                  investment.expectedReturnPercentage
+                  ? investment.expectedReturnPercentage/100 * investment.amountInvested : 0)}
+              </Text>
+              <Text style={{ color: colors.cardRed,  marginLeft: 6, fontWeight: '500', }}>
+              {investment.expectedReturnPercentage}%
+              </Text>
+            </View>
+          </View>
+
+          <View>
+            <Text style={styles.investmentInfoTitle}>
+              date of maturity
+            </Text>
+            <Text style={styles.investmentInfoDetail}>
+            {investment.status === 'mature' ? 'paid out ' : null}{new Date(investment.returnDate).toDateString()}
+            </Text>
+          </View>
+          
+        </View>
+      </Modal>
+    );
+  }
   render() {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor={colors.cardBack} barStyle="light-content" />
+        {this.renderViewInvestmentModal()}
         <ImageBackground
           source={backcurve}
           imageStyle={styles.imageStyle}
           style={styles.backImage}
         />
-        {this.renderHeadContentTwo(mocks.overview.networth.total)}
+        {this.renderHeadContentTwo(this.props.global.overview.active)}
         <View style={styles.body}>
           {this.renderHomeNav()}
           {this.renderAllTabs({
-            investments: mocks.investments, overview: mocks.overview
+            investments: this.props.global.investments.allInvestments,
+            overview: mocks.overview
           })}
         </View>
       </View>
@@ -151,6 +229,6 @@ class HomeScreen extends Component {
 
 const mapStateToProps = state => ({ ...state });
 
-const actionCreators = { isLoggingIn, setGlobal };
+const actionCreators = { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments };
 
 export default connect(mapStateToProps, actionCreators)(HomeScreen);
