@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity, Picker
+  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import RNPickerSelect from 'react-native-picker-select';
 import styles from './styles';
 import { isLoggingIn, setGlobal, fetchAllInvestments, isFetchingInvestments } from '../../store/actions/global';
 import backcurve from '../../assets/backcurve2.png'
 import menuButton from '../../assets/menuButton.png'
-import formDropdownIcon from '../../assets/formDropdownIcon.png'
 import mocks from './__mock__';
 import { addCommas } from '../../helpers';
-import { colors } from '../../commons';
-import reactotron from 'reactotron-react-native';
+import { colors, fonts } from '../../commons';
 import AllHomeTabs from '../../components/AllHomeTabs';
 import Modal from '../../components/Modal';
-import CustomTextInput from '../../commons/CustomTextInput';
+import AddNewInvestmentModal from './AddNewInvestmentModal';
+import ViewInvestmentModal from './ViewInvestmentModal';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -28,7 +26,17 @@ class HomeScreen extends Component {
     errors: '',
     showModal: false,
     openInvestment: {},
-    showAddNewInvestmentModal: false
+    showAddNewInvestmentModal: true,
+    dateInput: '',
+    newInvestment: {
+      name: "",
+      amountInvested: null,
+      roi: {
+        type: "percentage",
+        value: null
+      },
+      returnDate: ""
+    }
   }
 
   componentDidMount() {
@@ -72,120 +80,6 @@ class HomeScreen extends Component {
   launchAddNewInvestmentModal = () => {
     this.setState({ showAddNewInvestmentModal: true });
 
-  }
-
-  addNewInvestmentModal = () => {
-    const inputStyle = {
-      borderColor: colors.textGrey,
-      borderWidth: 1,
-      height: 47,
-      width: '100%',
-      color: colors.cardOrange,
-      fontWeight: 'bold',
-    };
-
-    const textStyle = {
-      color: colors.textGrey,
-      fontWeight: '300',
-      textTransform: 'capitalize',
-    }
-
-    const dropDownStyle = {
-      textAlign: 'center',
-      color: colors.textGrey,
-      borderColor: colors.textGrey,
-      fontSize: 16,
-      borderWidth: 1,
-      borderLeftWidth: 0,
-      height: 47,
-      color: colors.cardOrange,
-      fontWeight: 'bold',
-      paddingLeft: 10,
-    }
-
-    return (
-      <Modal
-        positiveActionText="Add"
-        visible={this.state.showAddNewInvestmentModal}
-        headerTitle="add investment"
-        toggleModal={() => this.setState({ showAddNewInvestmentModal: false })}
-      >
-        <View>
-            <View>
-              <CustomTextInput {...{
-                label: 'name',
-                textStyle,
-                inputStyle,
-                inputFieldOptions: {
-                }
-              }}/>
-            </View>
-          <View>
-            <CustomTextInput {...{
-              label: 'principle',
-              textStyle,
-              inputStyle,
-              inputFieldOptions: {
-              }
-            }}/>
-          </View>
-          <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 25 }}>
-            <View style={{ width: '70%' }}>
-              <CustomTextInput {...{
-                label: 'return on investment',
-                textStyle,
-                inputStyle: { ...inputStyle, borderRightWidth: 0,  },
-                parentStyle:{ marginBottom: 0 },
-                inputFieldOptions: {
-                }
-              }}/>
-            </View>
-            <View style={{ height: 47, borderRightWidth: 1, borderColor: colors.textGrey }}/>
-            <View style={{ width: '30%', }}>
-              <RNPickerSelect
-                onValueChange={(value) => console.log(value)}
-                placeholder={{}}
-                style={{
-                  alignItems: 'center',
-                  inputIOS: { ...dropDownStyle },
-                  inputAndroid: { ...dropDownStyle  },
-                  iconContainer: {
-                    right: null,
-                    paddingLeft: 10
-                  }
-                }}
-                useNativeAndroidPickerStyle={false}
-                items={[
-                  { label: '%', value: '%' },
-                  { label: 'Naira', value: 'Naira' },
-                ]}
-                Icon={() =>
-                  <View 
-                   style={{
-                      justifyContent: 'center',
-                      height: 47,
-                      alignItems: 'center',
-                      right: '10%'
-                    }}
-                  >
-                    <Image  source={formDropdownIcon}/>
-                  </View>
-                }
-              />
-            </View>
-          </View>
-        </View>
-        <View>
-          <CustomTextInput {...{
-            label: 'date of maturity',
-            textStyle,
-            inputStyle,
-            inputFieldOptions: {
-            }
-          }}/>
-        </View>
-      </Modal>
-    )
   }
 
   renderHeadContent = (totalNetworth) =>
@@ -244,9 +138,7 @@ class HomeScreen extends Component {
 
   toggleModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
-  viewInvestment = (investment) => {
-    this.setState({ openInvestment: investment, showModal: true });
-  }
+  viewInvestment = (investment) => this.setState({ openInvestment: investment, showModal: true });
 
   renderAllTabs = ({ investments, overview }) =>
     <AllHomeTabs
@@ -270,71 +162,24 @@ class HomeScreen extends Component {
       activeTabScrollRef={scroller => this.activeTabScroller = scroller}
       matureTabScrollerRef={scroller => this.matureTabScroller = scroller}
     />
-   
 
-  renderViewInvestmentModal = () => {
-    const { openInvestment: investment } = this.state;
-    return (
-      <Modal visible={this.state.showModal} toggleModal={this.toggleModal}>
-        <View style={styles.investmentInfoParent}>
-
-          <View>
-            <Text style={styles.investmentInfoTitle}>
-              name
-            </Text>
-            <Text style={styles.investmentInfoDetail}>
-              {investment.name}
-            </Text>
-          </View>
-
-          <View>
-            <Text style={styles.investmentInfoTitle}>
-              principle
-            </Text>
-            <Text style={styles.investmentInfoDetail}>
-              N{addCommas(investment.amountInvested || 0)}
-            </Text>
-          </View>
-
-          <View>
-            <Text style={styles.investmentInfoTitle}>
-              return on investment
-            </Text>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 17
-            }}>
-              <Text style={[styles.investmentInfoDetail, { marginBottom: 0 }]}>
-                N{addCommas(
-                  investment.expectedReturnPercentage
-                  ? investment.expectedReturnPercentage/100 * investment.amountInvested : 0)}
-              </Text>
-              <Text style={{ color: colors.cardRed,  marginLeft: 6, fontWeight: '500', }}>
-              {investment.expectedReturnPercentage}%
-              </Text>
-            </View>
-          </View>
-
-          <View>
-            <Text style={styles.investmentInfoTitle}>
-              date of maturity
-            </Text>
-            <Text style={styles.investmentInfoDetail}>
-            {investment.status === 'mature' ? 'paid out ' : null}{new Date(investment.returnDate).toDateString()}
-            </Text>
-          </View>
-          
-        </View>
-      </Modal>
-    );
-  }
   render() {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor={colors.cardBack} barStyle="light-content" />
-        {this.renderViewInvestmentModal()}
-        {this.addNewInvestmentModal()}
+        <ViewInvestmentModal
+          showModal={this.state.showModal}
+          toggleModal={this.toggleModal}
+          investment={this.state.openInvestment}
+        />
+        <AddNewInvestmentModal
+          visible={this.state.showAddNewInvestmentModal}
+          toggleModal={
+            () => this.setState({ showAddNewInvestmentModal: false })
+          }
+          onDateChange={dateInput => this.setState({ dateInput })}
+          dateValue={this.state.dateInput}
+        />
         <ImageBackground
           source={backcurve}
           imageStyle={styles.imageStyle}
