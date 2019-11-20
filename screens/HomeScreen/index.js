@@ -114,7 +114,7 @@ class HomeScreen extends Component {
         </View>
         <View style={styles.overviewCont}>
           <Text style={styles.overviewValue}>
-            N{addCommas(active.principle + active.roi)}
+            N{addCommas(Math.floor(active.principle + active.roi))}
           </Text>
         </View>
       </View>
@@ -159,7 +159,7 @@ class HomeScreen extends Component {
       investment,
       toggleAddNewInvestmentModal: this.toggleAddNewInvestmentModal
     });
-    () => this.setState({ newInvestment: { ...defaultNewInvestment } })
+    this.setState({ newInvestment: { ...defaultNewInvestment } })
   }
 
   renderAllTabs = ({ investments, overview }) =>
@@ -193,6 +193,7 @@ class HomeScreen extends Component {
           showModal={this.state.showModal}
           toggleModal={this.toggleModal}
           investment={this.state.openInvestment}
+          deleteInvestment={this.props.deleteInvestment}
         />
         <AddNewInvestmentModal
           visible={this.state.showAddNewInvestmentModal}

@@ -28,7 +28,7 @@ export default ({ toggleModal, visible, values, setNewInvestmentFormValues, posi
   <Modal
     positiveActionText="Add"
     visible={visible}
-    headerTitle="add investment"
+    headerTitle="add new investment"
     toggleModal={toggleModal}
     positiveActionHandler={positiveActionHandler}
   >
