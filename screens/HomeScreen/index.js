@@ -189,13 +189,13 @@ class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor={colors.cardBack} barStyle="light-content" />
-        <ViewInvestmentModal
+        {this.state.showModal ? <ViewInvestmentModal
           showModal={this.state.showModal}
           toggleModal={this.toggleModal}
           investment={this.state.openInvestment}
           deleteInvestment={this.props.deleteInvestment}
-        />
-        <AddNewInvestmentModal
+        /> : null}
+        {this.state.showAddNewInvestmentModal ? <AddNewInvestmentModal
           visible={this.state.showAddNewInvestmentModal}
           toggleModal={
             () => this.setState({ showAddNewInvestmentModal: false, newInvestment: { ...defaultNewInvestment } })
@@ -203,7 +203,7 @@ class HomeScreen extends Component {
           positiveActionHandler={this.addNewInvestmentHandler}
           values={this.state.newInvestment}
           setNewInvestmentFormValues={this.setNewInvestmentFormValues}
-        />
+        /> : null}
         <ImageBackground
           source={backcurve}
           imageStyle={styles.imageStyle}
