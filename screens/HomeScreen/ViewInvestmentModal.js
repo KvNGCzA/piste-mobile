@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image, TouchableHighlight } from 'react-native';
 import styles from './styles';
 import { addCommas } from '../../helpers';
 import { colors, fonts } from '../../commons';
 import Modal from '../../components/Modal';
+import trash from '../../assets/trash.png'
 
-export default ({ showModal, toggleModal, investment }) =>
+export default ({ showModal, toggleModal, investment, deleteInvestment }) =>
   <Modal visible={showModal} toggleModal={toggleModal}>
     <View style={styles.investmentInfoParent}>
 
@@ -39,7 +40,7 @@ export default ({ showModal, toggleModal, investment }) =>
           <Text style={[styles.investmentInfoDetail, { marginBottom: 0 }]}>
             N{addCommas(
               investment.expectedReturnPercentage
-              ? investment.expectedReturnPercentage/100 * investment.amountInvested : 0)}
+              ? Math.floor(investment.expectedReturnPercentage/100 * investment.amountInvested): 0)}
           </Text>
           <Text style={{ color: colors.cardRed,  marginLeft: 6, fontWeight: '500', }}>
           {investment.expectedReturnPercentage}%
@@ -55,6 +56,15 @@ export default ({ showModal, toggleModal, investment }) =>
         {investment.status === 'mature' ? 'paid out ' : null}{new Date(investment.returnDate).toDateString()}
         </Text>
       </View>
-      
+      <TouchableHighlight
+        style={{
+          position: 'absolute',
+          right: 0,
+        }}
+        onPress={() => deleteInvestment({ investmentId: investment.id, status: investment.status, toggleModal })}
+      >
+        <Image source={trash}/>
+      </TouchableHighlight>
+
     </View>
   </Modal>
