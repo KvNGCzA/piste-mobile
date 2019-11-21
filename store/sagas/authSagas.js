@@ -2,7 +2,7 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import { API_BASE_URI, API_BASE_URL } from 'react-native-dotenv';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import { IS_LOGGING_IN, FETCH_ALL_INVESTMENTS, ADD_NEW_INVESTMENT, DELETE_INVESTMENT }  from '../constants';
+import { IS_LOGGING_IN, FETCH_ALL_INVESTMENTS, ADD_NEW_INVESTMENT, DELETE_INVESTMENT, EDIT_INVESTMENT }  from '../constants';
 import { setGlobal, setAllInvestments, isFetchingInvestments, attachNewInvestment, detachInvestment } from '../actions/global';
 import reactotron from 'reactotron-react-native';
 
@@ -10,7 +10,7 @@ let errors;
 
 export function* logUserIn(action) {
   try {
-    const { data: { token, user, overview } } = yield call(axios.post, `${API_BASE_URI}/auth/login`, { ...action.data });
+    const { data: { token, user, overview } } = yield call(axios.post, `${API_BASE_URL}/auth/login`, { ...action.data });
     AsyncStorage.setItem('jwt-token', token);
     axios.defaults.headers.common['Authorization'] = token;
     yield put(setGlobal({ isLoggedIn: true, user, overview }));
@@ -31,7 +31,7 @@ export function* watchLogUserIn() {
 
 export function* fetchAllInvestments(action) {
   try {
-    const { data: { overview, investments } } = yield call(axios.get, `${API_BASE_URI}/user/myinvestments`);
+    const { data: { overview, investments } } = yield call(axios.get, `${API_BASE_URL}/user/myinvestments`);
     yield put(setGlobal({ overview }));
     yield put(setAllInvestments({ investments }));
   } catch (error) {
@@ -50,7 +50,7 @@ export function* watchFetchAllInvestmens() {
 
 export function* addNewInvestment(action) {
   try {
-    const { data: { overview, investment } } = yield call(axios.post, `${API_BASE_URI}/user/investment`, action.data.investment);
+    const { data: { overview, investment } } = yield call(axios.post, `${API_BASE_URL}/user/investment`, action.data.investment);
     yield put(setGlobal({ overview }));
     yield put(attachNewInvestment(investment))
     action.data.toggleAddNewInvestmentModal();
@@ -69,7 +69,7 @@ export function* watchAddNewInvestmens() {
 
 export function* deleteInvestment(action) {
   try {
-    const { data: { overview } } = yield call(axios.delete, `${API_BASE_URI}/user/investment/${action.data.investmentId}`);
+    const { data: { overview } } = yield call(axios.delete, `${API_BASE_URL}/user/investment/${action.data.investmentId}`);
     yield put(setGlobal({ overview }));
     yield put(detachInvestment(action.data))
     action.data.toggleModal();
@@ -84,4 +84,23 @@ export function* deleteInvestment(action) {
 
 export function* watchDeleteInvestment() {
   yield takeLatest(DELETE_INVESTMENT, deleteInvestment);
+}
+
+export function* editInvestment(action) {
+  try {
+    const { data: { overview } } = yield call(axios.put, `${API_BASE_URL}/user/investment/${action.data.investmentId}`, action.data.investment);
+    yield put(setGlobal({ overview }));
+    // yield put(detachInvestment(action.data))
+    action.data.toggleEditedInvestmentModal();
+  } catch (error) {
+    reactotron.log(error, action)
+    errors = error.response
+      ? error.response.data.message
+      : 'Network error, please try again!';
+  }
+  yield put(setGlobal({ errors }));
+}
+
+export function* watchEditInvestment() {
+  yield takeLatest(EDIT_INVESTMENT, editInvestment);
 }

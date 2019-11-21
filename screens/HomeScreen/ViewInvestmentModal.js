@@ -6,8 +6,8 @@ import { colors, fonts } from '../../commons';
 import Modal from '../../components/Modal';
 import trash from '../../assets/trash.png'
 
-export default ({ showModal, toggleModal, investment, deleteInvestment }) =>
-  <Modal visible={showModal} toggleModal={toggleModal}>
+export default ({ showModal, toggleModal, investment, deleteInvestment, editInvestmentHandler }) =>
+  <Modal visible={showModal} toggleModal={toggleModal} positiveActionHandler={editInvestmentHandler}>
     <View style={styles.investmentInfoParent}>
 
       <View>

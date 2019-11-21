@@ -6,7 +6,7 @@ import InvestmentCard from '../InvestmentCard';
 
 const renderInvestmentTabs = ({
   investments, childScrollRef, viewInvestment
-}) => 
+}) =>
   <View style={styles.tabParent}>
     <ScrollView
       scrollEnabled

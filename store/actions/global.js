@@ -1,6 +1,6 @@
 import {
   SET_GLOBAL, IS_LOGGING_IN, SET_ALL_INVESTMENTS, FETCH_ALL_INVESTMENTS, IS_FETCHING_INVESTMENTS,
-  ADD_NEW_INVESTMENT, ATTACH_NEW_INVESTMENT, DETACH_INVESTMENT, DELETE_INVESTMENT
+  ADD_NEW_INVESTMENT, ATTACH_NEW_INVESTMENT, DETACH_INVESTMENT, DELETE_INVESTMENT, EDIT_INVESTMENT
 } from '../constants';
 
 export const setGlobal = data => ({
@@ -47,6 +47,11 @@ export const detachInvestment = data => ({
   data
 });
 
+export const editInvestment = data => ({
+  type: EDIT_INVESTMENT,
+  data
+});
+
 export default {
   setGlobal,
   isLoggingIn,
@@ -56,5 +61,6 @@ export default {
   addNewInvestment,
   attachNewInvestment,
   deleteInvestment,
-  detachInvestment
+  detachInvestment,
+  editInvestment
 };

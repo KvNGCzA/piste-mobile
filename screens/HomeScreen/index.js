@@ -35,8 +35,10 @@ class HomeScreen extends Component {
     showModal: false,
     openInvestment: {},
     showAddNewInvestmentModal: false,
+    showEditNewInvestmentModal: false,
     dateInput: '',
-    newInvestment: { ...defaultNewInvestment }
+    newInvestment: { ...defaultNewInvestment },
+    editedInvestment: { ...defaultNewInvestment }
   }
 
   componentDidMount() {
@@ -50,6 +52,16 @@ class HomeScreen extends Component {
       ...prevState,
       newInvestment: {
         ...prevState.newInvestment,
+        [key]: value
+      }
+    }))
+  }
+
+  setEditedInvestmentFormValues = (value, key) => {
+    this.setState(prevState => ({
+      ...prevState,
+      editedInvestment: {
+        ...prevState.editedInvestment,
         [key]: value
       }
     }))
@@ -152,14 +164,28 @@ class HomeScreen extends Component {
   addNewInvestmentHandler = () => {
     const { newInvestment } =this.state;
     const investment = { ...newInvestment };
-    investment.roi = {};
-    investment.roi.type = investment.roiType;
-    investment.roi.value = investment.roiValue;
+    investment.roi = { type: investment.roiType, value: investment.roiValue };
     this.props.addNewInvestment({
       investment,
       toggleAddNewInvestmentModal: this.toggleAddNewInvestmentModal
     });
     this.setState({ newInvestment: { ...defaultNewInvestment } })
+  }
+
+  editInvestmentHandler = () => {
+    const { editedInvestment } =this.state;
+    const investment = { ...editedInvestment };
+    investment.roi = {
+      type: investment.roiType,
+      value: investment.roiValue
+    };
+    delete investment.expectedReturnPercentage;
+    this.props.editInvestment({
+      investment,
+      investmentId: investment.id,
+      toggleEditedInvestmentModal: this.setState({ showEditNewInvestmentModal: false })
+    });
+    this.setState({ editedInvestment: { ...defaultNewInvestment } })
   }
 
   renderAllTabs = ({ investments, overview }) =>
@@ -194,15 +220,40 @@ class HomeScreen extends Component {
           toggleModal={this.toggleModal}
           investment={this.state.openInvestment}
           deleteInvestment={this.props.deleteInvestment}
+          editInvestmentHandler={() => this.setState({
+            editedInvestment: {
+              ...defaultNewInvestment,
+              ...this.state.openInvestment,
+              roiValue: this.state.openInvestment.expectedReturnPercentage
+            },
+            showEditNewInvestmentModal: true,
+            showModal: false
+          })}
         /> : null}
         {this.state.showAddNewInvestmentModal ? <AddNewInvestmentModal
           visible={this.state.showAddNewInvestmentModal}
           toggleModal={
-            () => this.setState({ showAddNewInvestmentModal: false, newInvestment: { ...defaultNewInvestment } })
+            () => this.setState({
+              showAddNewInvestmentModal: false,
+              newInvestment: { ...defaultNewInvestment }
+            })
           }
           positiveActionHandler={this.addNewInvestmentHandler}
+          positiveActionText="add"
           values={this.state.newInvestment}
           setNewInvestmentFormValues={this.setNewInvestmentFormValues}
+          headerTitle="add new investment"
+        /> : null}
+        {this.state.showEditNewInvestmentModal ? <AddNewInvestmentModal
+          visible={this.state.showEditNewInvestmentModal}
+          toggleModal={
+            () => this.setState({ showEditNewInvestmentModal: false })
+          }
+          positiveActionHandler={this.editInvestmentHandler}
+          positiveActionText="update"
+          values={this.state.editedInvestment}
+          setNewInvestmentFormValues={this.setEditedInvestmentFormValues}
+          headerTitle="edit investment"
         /> : null}
         <ImageBackground
           source={backcurve}
