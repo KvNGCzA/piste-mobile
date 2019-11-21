@@ -43,7 +43,7 @@ export default ({ showModal, toggleModal, investment, deleteInvestment, editInve
               ? Math.floor(investment.expectedReturnPercentage/100 * investment.amountInvested): 0)}
           </Text>
           <Text style={{ color: colors.cardRed,  marginLeft: 6, fontWeight: '500', }}>
-          {investment.expectedReturnPercentage}%
+          {Number.isInteger(investment.expectedReturnPercentage) ? investment.expectedReturnPercentage : `${investment.expectedReturnPercentage}`.substring(0, 5)}%
           </Text>
         </View>
       </View>
