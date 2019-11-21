@@ -24,11 +24,11 @@ const textStyle = {
   textTransform: 'capitalize',
 };
 
-export default ({ toggleModal, visible, values, setNewInvestmentFormValues, positiveActionHandler }) => 
+export default ({ toggleModal, visible, values, setNewInvestmentFormValues, positiveActionHandler, headerTitle, positiveActionText }) => 
   <Modal
-    positiveActionText="Add"
+    positiveActionText={positiveActionText}
     visible={visible}
-    headerTitle="add new investment"
+    headerTitle={headerTitle}
     toggleModal={toggleModal}
     positiveActionHandler={positiveActionHandler}
   >
@@ -53,7 +53,7 @@ export default ({ toggleModal, visible, values, setNewInvestmentFormValues, posi
           inputFieldOptions: {
             returnKeyType: 'next',
             onChangeText: (value) => setNewInvestmentFormValues(value, 'amountInvested'),
-            value: values.amountInvested,
+            value: values.amountInvested && typeof values.amountInvested !== 'string' ? `${values.amountInvested }` : values.amountInvested || '',
             keyboardType: 'numeric'
           }
         }}/>

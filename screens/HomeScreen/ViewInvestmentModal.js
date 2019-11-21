@@ -6,8 +6,8 @@ import { colors, fonts } from '../../commons';
 import Modal from '../../components/Modal';
 import trash from '../../assets/trash.png'
 
-export default ({ showModal, toggleModal, investment, deleteInvestment }) =>
-  <Modal visible={showModal} toggleModal={toggleModal}>
+export default ({ showModal, toggleModal, investment, deleteInvestment, editInvestmentHandler }) =>
+  <Modal visible={showModal} toggleModal={toggleModal} positiveActionHandler={editInvestmentHandler}>
     <View style={styles.investmentInfoParent}>
 
       <View>
@@ -43,7 +43,7 @@ export default ({ showModal, toggleModal, investment, deleteInvestment }) =>
               ? Math.floor(investment.expectedReturnPercentage/100 * investment.amountInvested): 0)}
           </Text>
           <Text style={{ color: colors.cardRed,  marginLeft: 6, fontWeight: '500', }}>
-          {investment.expectedReturnPercentage}%
+          {Number.isInteger(investment.expectedReturnPercentage) ? investment.expectedReturnPercentage : `${investment.expectedReturnPercentage}`.substring(0, 5)}%
           </Text>
         </View>
       </View>

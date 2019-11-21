@@ -18,7 +18,9 @@ export default ({ investment, viewInvestment }) =>
     <View style={styles.investmentDetails}>
       <View style={styles.roi}>
         <Text style={styles.amountInvested}>N{addCommas(investment.amountInvested)}</Text>
-        <Text style={styles.expectedReturnPercentage}>{investment.expectedReturnPercentage}% roi</Text>
+        <Text style={styles.expectedReturnPercentage}>
+          {`${investment.expectedReturnPercentage}`.substring(0, 5)}% roi
+        </Text>
       </View>
       <View style={styles.countDownTimer}>
         <Text style={styles.countDownTimerText}>
