@@ -95,8 +95,8 @@ class HomeScreen extends Component {
   }
 
   scrollTabsToFront = () => {
-    this.activeTabScroller.scrollTo({ x: 0, y: 0 });
-    this.matureTabScroller.scrollTo({ x: 0, y: 0 });
+    if (this.activeTabScroller) this.activeTabScroller.scrollTo({ x: 0, y: 0 });
+    if (this.matureTabScroller) this.matureTabScroller.scrollTo({ x: 0, y: 0 });
   }
 
   toggleAddNewInvestmentModal = () => {
@@ -183,7 +183,7 @@ class HomeScreen extends Component {
     this.props.editInvestment({
       investment,
       investmentId: investment.id,
-      toggleEditedInvestmentModal: this.setState({ showEditNewInvestmentModal: false })
+      toggleEditedInvestmentModal: () => this.setState({ showEditNewInvestmentModal: false })
     });
     this.setState({ editedInvestment: { ...defaultNewInvestment } })
   }
@@ -194,21 +194,11 @@ class HomeScreen extends Component {
       activeInvestments={investments.active || []}
       matureInvestments={investments.mature || []}
       viewInvestment={this.viewInvestment}
-      overview={[{
-        name: 'principle',
-        value: overview.active.principle
-      }, {
-        name: 'return on investment',
-        value: overview.active.roi,
-        percentageRoi: overview.active.percentageROI
-      }, {
-        name: 'number of investments',
-        value: overview.active.numberOfInvestments,
-        currency: false
-      }]}
+      overview={overview}
       parentScrollRef={scroller => this.parentScroller = scroller}
       activeTabScrollRef={scroller => this.activeTabScroller = scroller}
       matureTabScrollerRef={scroller => this.matureTabScroller = scroller}
+      toggleAddNewInvestmentModal={this.toggleAddNewInvestmentModal}
     />
 
   render() {
@@ -265,7 +255,7 @@ class HomeScreen extends Component {
           {this.renderHomeNav()}
           {this.renderAllTabs({
             investments: this.props.global.investments.allInvestments,
-            overview: mocks.overview
+            overview: this.props.global.overview,
           })}
         </View>
       </View>
