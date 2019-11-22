@@ -6,7 +6,7 @@ import reactotron from 'reactotron-react-native';
 
 export default class Buttons extends Component {
   selectButton = ({
-    type, value, style, onPress, isLoading, actionType
+    type, value, style, onPress, isLoading, actionType, textStyle
   }) => {
     switch (type) {
       case 'action':
@@ -48,7 +48,7 @@ export default class Buttons extends Component {
               size='small' 
               style={{ position: 'absolute', right: 40 }}
             />
-            <Text style={styles.bg_home_text}>{value}</Text>
+            <Text style={[styles.bg_home_text, textStyle ? textStyle : {}]}>{value}</Text>
           </TouchableOpacity>
         )
     }

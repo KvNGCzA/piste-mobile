@@ -6,12 +6,40 @@ import { Platform } from '@unimodules/core';
 const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
+  placeholderParent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width
+  },
+  topText: {
+    fontSize: 20,
+    color: colors.textGrey,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 2,
+      height: 1,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
+    textAlign: 'center'
+  },
+  customPlaceholderButton: {
+    width: '100%',
+    textAlign: 'center',
+    shadowColor: "#191919",
+    shadowOffset: {
+      width: 2,
+      height: 1,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84
+  },
   tabs: {
     flexDirection: 'row',
   },
   tab: {
     borderRadius: 7,
-    marginBottom: 10,
+    marginBottom: 10
   },
   tabParent: {
     width,
