@@ -20,7 +20,6 @@ export default StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 1,
-    shadowRadius: 3.84,
     textAlign: 'center'
   },
   customPlaceholderButton: {
@@ -32,7 +31,6 @@ export default StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 1,
-    shadowRadius: 3.84
   },
   tabs: {
     flexDirection: 'row',

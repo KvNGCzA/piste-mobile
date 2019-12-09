@@ -1,5 +1,5 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { API_BASE_URI, API_BASE_URL } from 'react-native-dotenv';
+import { API_BASE_URL } from 'react-native-dotenv';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import { IS_LOGGING_IN, FETCH_ALL_INVESTMENTS, ADD_NEW_INVESTMENT, DELETE_INVESTMENT, EDIT_INVESTMENT }  from '../constants';

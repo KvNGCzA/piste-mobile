@@ -121,7 +121,7 @@ class HomeScreen extends Component {
         <View style={{ flexDirection: 'row' }}>
           <Text style={[styles.label, { marginRight: 3 }]}>total portfolio</Text>
           <Text style={[styles.label, { color: colors.cardRed, fontWeight: 'bold' }]}>
-            {active.percentageROI.toFixed(2)}% ROI
+            {`${active.percentageROI}`.substring(0, 5)}% ROI
           </Text>
         </View>
         <View style={styles.overviewCont}>

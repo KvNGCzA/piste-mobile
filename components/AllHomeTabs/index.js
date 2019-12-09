@@ -4,11 +4,12 @@ import styles from './styles';
 import { addCommas } from '../../helpers';
 import InvestmentCard from '../InvestmentCard';
 import addButton from '../../assets/addButton.png';
+import girlchart from '../../assets/girlchart.png';
 import reactotron from 'reactotron-react-native';
 import Buttons from '../../commons/Buttons';
 import { colors } from '../../commons';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const renderInvestmentTabs = ({
   investments, childScrollRef, viewInvestment
@@ -41,7 +42,7 @@ const renderOverviewTabContent = ({
       style={styles.overviewCategory}
     >
       <Text style={[styles.text, styles.overviewRoi]}>
-        {percentageROI && `${percentageROI.toFixed(2)}%`}
+        {percentageROI && `${`${percentageROI}`.substring(0, 5)}%`}
       </Text>
       <Text style={[styles.text, styles.overviewPrinciple]}>
         {currency ? 'N' : ''}{addCommas(principle)}
@@ -87,20 +88,29 @@ const placeHolder = (type, toggleAddNewInvestmentModal) =>
       <Text style={styles.topText}>
         {type === 'active' ? 'any investment' : 'investments'}
       </Text>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
-          marginTop: 90,
-          marginBottom: 90
+          marginTop: 30,
+          marginBottom: 30
         }}
         onPress={toggleAddNewInvestmentModal}
-      >
-        <Image source={addButton} style={{ height: 100, width: 100 }}/>
-      </TouchableOpacity>
-      <Buttons 
+      > */}
+        <Image
+          source={girlchart}
+          style={{
+            height: (0.3 * height),
+            width: (0.3 * height),
+            resizeMode: 'contain',
+            marginTop: 30,
+            marginBottom: 30
+          }}
+        />
+      {/* </TouchableOpacity> */}
+      {type === 'active' ? <Buttons 
         value="start now"
         style={styles.customPlaceholderButton}
         onPress={toggleAddNewInvestmentModal}
-      />
+      /> : null}
     </View>
   </View>
 
