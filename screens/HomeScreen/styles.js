@@ -118,7 +118,6 @@ export default StyleSheet.create({
     color: colors.cardOrange,
     fontFamily: fonts.redHat,
     fontWeight: '500',
-    textTransform: 'capitalize',
     marginBottom: 17,
     fontSize: 16,
     letterSpacing: 1
