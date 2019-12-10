@@ -14,6 +14,11 @@ import AllHomeTabs from '../../components/AllHomeTabs';
 import AddNewInvestmentModal from './AddNewInvestmentModal';
 import ViewInvestmentModal from './ViewInvestmentModal';
 import reactotron from 'reactotron-react-native';
+import chartDecrease from '../../assets/chart-decrease.png';
+import moneyBill from '../../assets/money-bill.png';
+import history from '../../assets/history.png';
+import homeImage from '../../assets/homeImage.png';
+import sun from '../../assets/sun.png';
 
 const defaultNewInvestment = {
   name: '',
@@ -103,60 +108,6 @@ class HomeScreen extends Component {
     this.setState((prevState) => ({ ...prevState, showAddNewInvestmentModal: !prevState.showAddNewInvestmentModal }));
   }
 
-  renderHeadContent = (totalNetworth) =>
-    <View style={styles.content}>
-      <Image source={menuButton} style={{ width: 100, height: 100, borderRadius: 50 }}/>
-      <View>
-        <View style={styles.overviewCont}>
-          <Text style={styles.currency}>N</Text>
-          <Text style={styles.overviewValue}>{addCommas(totalNetworth)}</Text>
-        </View>
-        <Text style={styles.label}>networth</Text>
-      </View>
-    </View>
-
-  renderHeadContentTwo = (active) =>
-    <View style={styles.content}>
-      <View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={[styles.label, { marginRight: 3 }]}>total portfolio</Text>
-          <Text style={[styles.label, { color: colors.cardRed, fontWeight: 'bold' }]}>
-            {`${active.percentageROI}`.substring(0, 5)}% ROI
-          </Text>
-        </View>
-        <View style={styles.overviewCont}>
-          <Text style={styles.overviewValue}>
-            N{addCommas(Math.floor(active.principle + active.roi))}
-          </Text>
-        </View>
-      </View>
-      <TouchableOpacity onPress={this.toggleAddNewInvestmentModal} >
-        <Image source={menuButton} style={styles.menuButton}/>
-      </TouchableOpacity>
-    </View>
-
-  renderHomeNav = () => 
-    <View style={styles.homeNavCont}>
-      <TouchableOpacity
-        onPress={() => this.scrollToTab(0)}
-        style={[styles.homeNavBtn, this.state.activeTab === 1 ? styles.active : '']}
-      >
-        <Text style={styles.homeNavText}>active</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => this.scrollToTab(1)}
-        style={[styles.homeNavBtn, this.state.activeTab === 2 ? styles.active : '']}
-      >
-        <Text style={styles.homeNavText}>mature</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => this.scrollToTab(2)}
-        style={[styles.homeNavBtn, this.state.activeTab === 3 ? styles.active : '']}
-      >
-        <Text style={styles.homeNavText}>overview</Text>
-      </TouchableOpacity>
-    </View>
-
   toggleModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
   viewInvestment = (investment) => this.setState({ openInvestment: investment, showModal: true });
@@ -188,76 +139,101 @@ class HomeScreen extends Component {
     this.setState({ editedInvestment: { ...defaultNewInvestment } })
   }
 
-  renderAllTabs = ({ investments, overview }) =>
-    <AllHomeTabs
-      handleScroll={this.handleScroll}
-      activeInvestments={investments.active || []}
-      matureInvestments={investments.mature || []}
-      viewInvestment={this.viewInvestment}
-      overview={overview}
-      parentScrollRef={scroller => this.parentScroller = scroller}
-      activeTabScrollRef={scroller => this.activeTabScroller = scroller}
-      matureTabScrollerRef={scroller => this.matureTabScroller = scroller}
-      toggleAddNewInvestmentModal={this.toggleAddNewInvestmentModal}
-    />
-
   render() {
+    const cards = [{
+      image: chartDecrease,
+      text: 'View Active investment'
+    }, {
+      image: moneyBill,
+      text: 'View your next payout'
+    }, {
+      image: history,
+      text: 'View investments history'
+    }];
+
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor={colors.cardBack} barStyle="light-content" />
-        {this.state.showModal ? <ViewInvestmentModal
-          showModal={this.state.showModal}
-          toggleModal={this.toggleModal}
-          investment={this.state.openInvestment}
-          deleteInvestment={this.props.deleteInvestment}
-          editInvestmentHandler={() => this.setState({
-            editedInvestment: {
-              ...defaultNewInvestment,
-              ...this.state.openInvestment,
-              roiValue: this.state.openInvestment.expectedReturnPercentage
-            },
-            showEditNewInvestmentModal: true,
-            showModal: false
-          })}
-        /> : null}
-        {this.state.showAddNewInvestmentModal ? <AddNewInvestmentModal
-          visible={this.state.showAddNewInvestmentModal}
-          toggleModal={
-            () => this.setState({
-              showAddNewInvestmentModal: false,
-              newInvestment: { ...defaultNewInvestment }
-            })
-          }
-          positiveActionHandler={this.addNewInvestmentHandler}
-          positiveActionText="add"
-          values={this.state.newInvestment}
-          setNewInvestmentFormValues={this.setNewInvestmentFormValues}
-          headerTitle="add new investment"
-        /> : null}
-        {this.state.showEditNewInvestmentModal ? <AddNewInvestmentModal
-          visible={this.state.showEditNewInvestmentModal}
-          toggleModal={
-            () => this.setState({ showEditNewInvestmentModal: false })
-          }
-          positiveActionHandler={this.editInvestmentHandler}
-          positiveActionText="update"
-          values={this.state.editedInvestment}
-          setNewInvestmentFormValues={this.setEditedInvestmentFormValues}
-          headerTitle="edit investment"
-        /> : null}
-        <ImageBackground
-          source={backcurve}
-          imageStyle={styles.imageStyle}
-          style={styles.backImage}
-        />
-        {this.renderHeadContentTwo(this.props.global.overview.active)}
-        <View style={styles.body}>
-          {this.renderHomeNav()}
-          {this.renderAllTabs({
-            investments: this.props.global.investments.allInvestments,
-            overview: this.props.global.overview,
-          })}
+        <View style={styles.head}>
+          <Text style={{
+            color: colors.primaryColor,
+            textTransform: 'uppercase',
+            fontFamily: fonts.redHatM,
+            fontSize: 10,
+            letterSpacing: 1
+          }}>total investments capital</Text>
+          <Text style={{
+            color: colors.primaryColor,
+            fontFamily: fonts.redHatM,
+            fontSize: 32,
+            letterSpacing: 1
+          }}>N5,000,000</Text>
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row'
+          }}>
+            <Text style={{
+              color: colors.textGrey,
+              fontFamily: fonts.redHatM,
+              fontSize: 14,
+              letterSpacing: 1
+            }}>N1,500,000</Text>
+            <Text style={{
+              color: colors.warning,
+              fontFamily: fonts.redHatM,
+              fontSize: 14,
+              letterSpacing: 1
+            }}> 30% ROI</Text>
+          </View>
+          <Image source={homeImage} style={{
+            resizeMode: 'contain',
+            flex: 1,
+            width: '80%'
+          }}/>
         </View>
+
+        <View style={{
+          width: '90%',
+        }}>
+
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+            <Text style={{
+              fontFamily: fonts.redHatM,
+              textTransform: 'capitalize',
+              color: colors.primaryColor,
+              fontSize: 16,
+              paddingTop: 20,
+              paddingBottom: 20,
+              letterSpacing: 1
+            }}>Good Morning Christopher</Text>
+            <Image source={sun} style={{
+              height: 28,
+              width: 28,
+              marginLeft: 10,
+              resizeMode: 'contain'
+            }}/>
+          </View>
+
+          <View>
+            {cards.map(({ image, text }) => 
+              <View key={text} style={styles.homeCard}>
+                <Image style={{
+                  height: 60,
+                  width: 60,
+                  resizeMode: 'contain'
+                }} source={image}/>
+                <Text style={styles.homeCardText}>
+                  {text}
+                </Text>
+              </View>
+            )}
+          </View>
+
+        </View>
+
       </View>
     );
   }

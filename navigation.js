@@ -8,9 +8,9 @@ const AppNavigator = createStackNavigator({
   LoginScreen,
   HomeScreen
 }, {
-  initialRouteName: 'LoginScreen',
+  initialRouteName: 'HomeScreen',
   defaultNavigationOptions: {
-    gesturesEnabled: false
+    // gesturesEnabled: false
   }
   // defaultNavigationOptions: {
   //   // header: props => <Header {...props}/>,

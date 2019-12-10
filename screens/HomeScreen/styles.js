@@ -10,116 +10,46 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.secondaryColor,
+    alignItems: 'center',
   },
-  backImage: {
+  head: {
+    backgroundColor: colors.secondaryColor,
+    height: 450,
     width: '100%',
-    position: 'absolute',
-    top:0,
-    height: 190
-  },
-  imageStyle: {
-    resizeMode: 'cover',
-  },
-  content: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: 20,
-    marginTop: 87,
-  },
-  menuButton: {
-    width: 84,
-    height: 84,
-    right: -2
-  },
-  overviewCont: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  overviewValue: {
-    fontSize: 32,
-    fontFamily: fonts.redHat,
-    fontWeight: Platform.OS === 'ios' ? '500' : '400',
-    textAlign: 'right',
-    letterSpacing: 2,
-    color: colors.primaryColor,
-    fontWeight: 'bold',
-  },
-  currency: {
-    fontSize: 17,
-    color: colors.textGrey,
-    top: 6,
-    fontFamily: fonts.redHat,
-    marginRight: 2,
-    fontWeight: '500',
-  },
-  label: {
-    color: colors.primaryColor,
-    fontFamily: fonts.redHat,
-    fontSize: 10,
-    textAlign: 'left',
-    textTransform: 'uppercase',
-    letterSpacing: 1
-  },
-  homeNavCont: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    marginTop: 32,
-    backgroundColor: colors.cardBack,
-    borderColor: colors.cardBack,
-    borderWidth: 1,
-    borderRadius: 7,
-    height: 39,
-    marginBottom: 3,
-    marginLeft: 20,
-    marginRight: 20,
-    shadowColor: "#191919",
-    shadowOffset: {
-      width: 2,
-      height: 1,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 3.84,
-  },
-  homeNavBtn: {
-    backgroundColor: colors.cardBack,
-    flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
-    borderRadius: 7,
+    alignItems: 'center',
+    paddingTop: 90,
+    borderBottomColor: colors.border,
+    borderBottomWidth: 1,
+    shadowColor: colors.border,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,  
+    elevation: 4
   },
-  homeNavText: {
-    fontSize: 12,
-    color: colors.textGrey,
-    fontFamily: fonts.redHat,
-    textTransform: 'uppercase',
-    letterSpacing: 1
-  },
-  active: {
-    borderColor: '#323232',
+  homeCard: {
+    backgroundColor: colors.secondaryColor,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 14,
+    paddingRight: 40,
+    paddingLeft: 40,
+    borderColor: colors.border,
     borderWidth: 1,
+    borderRadius: 7,
+    marginBottom: 20,
+    shadowColor: colors.border,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,  
+    elevation: 4
   },
-  body: {
-    flex: 1,
-  },
-  investmentInfoParent: {
-    marginBottom: 35
-  },
-  investmentInfoTitle: {
-    color: colors.textGrey,
-    fontFamily: fonts.redHat,
-    textTransform: 'capitalize',
-    fontSize: 14,
-  },
-  investmentInfoDetail: {
-    color: colors.cardOrange,
-    fontFamily: fonts.redHat,
-    fontWeight: '500',
-    marginBottom: 17,
-    fontSize: 16,
+  homeCardText: {
+    fontFamily: fonts.redHatM,
+    textTransform: 'uppercase',
+    color: colors.primaryColor,
+    fontSize: 12,
     letterSpacing: 1
   }
 });
