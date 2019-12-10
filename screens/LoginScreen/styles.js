@@ -37,7 +37,7 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   clickable: {
-    color: colors.yellow,
+    color: colors.warning,
     fontSize: 14,
     marginLeft: 4,
   },
