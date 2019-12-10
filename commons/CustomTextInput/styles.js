@@ -21,7 +21,7 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   clickable: {
-    color: colors.yellow,
+    color: colors.warning,
     fontSize: 14,
     marginLeft: 4,
   },
