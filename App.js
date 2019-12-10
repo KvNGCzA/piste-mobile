@@ -17,7 +17,7 @@ export default () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-      <StatusBar backgroundColor={colors.secondaryColor} barStyle="dark-content" />
+        <StatusBar hidden backgroundColor={colors.secondaryColor} barStyle="dark-content" />
         <Navigation />
       </PersistGate>
     </Provider>

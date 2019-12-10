@@ -14,11 +14,11 @@ export default StyleSheet.create({
   },
   head: {
     backgroundColor: colors.secondaryColor,
-    height: 450,
+    height: 350,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 90,
+    paddingTop: 20,
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
     shadowColor: colors.border,

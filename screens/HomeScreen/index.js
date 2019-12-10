@@ -30,7 +30,7 @@ const defaultNewInvestment = {
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    header: null
+    // header: null
   };
 
   state = {
