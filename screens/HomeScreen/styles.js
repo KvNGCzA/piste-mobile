@@ -21,11 +21,7 @@ export default StyleSheet.create({
     paddingTop: 20,
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
-    shadowColor: colors.border,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,  
-    elevation: 4
+    ...colors.defaultShadow
   },
   homeCard: {
     backgroundColor: colors.secondaryColor,
@@ -39,11 +35,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 7,
     marginBottom: 20,
-    shadowColor: colors.border,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,  
-    elevation: 4
+    ...colors.defaultShadow
   },
   homeCardText: {
     fontFamily: fonts.redHatM,
