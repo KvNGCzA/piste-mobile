@@ -5,7 +5,6 @@ import {
 import { connect } from 'react-redux';
 import styles from './styles';
 import actions from '../../store/actions/global';
-import backcurve from '../../assets/backcurve2.png'
 import menuButton from '../../assets/menuButton.png'
 import mocks from './__mock__';
 import { addCommas } from '../../helpers';
@@ -19,6 +18,7 @@ import moneyBill from '../../assets/money-bill.png';
 import history from '../../assets/history.png';
 import homeImage from '../../assets/homeImage.png';
 import sun from '../../assets/sun.png';
+import options from '../../components/Header';
 
 const defaultNewInvestment = {
   name: '',
@@ -30,7 +30,7 @@ const defaultNewInvestment = {
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    // header: null
+    ...options
   };
 
   state = {
@@ -142,13 +142,16 @@ class HomeScreen extends Component {
   render() {
     const cards = [{
       image: chartDecrease,
-      text: 'View Active investment'
+      text: 'View Active investment',
+      link: 'AllInvestments'
     }, {
       image: moneyBill,
-      text: 'View your next payout'
+      text: 'View your next payout',
+      link: ''
     }, {
       image: history,
-      text: 'View investments history'
+      text: 'View investments history',
+      link: ''
     }];
 
     return (
@@ -218,8 +221,12 @@ class HomeScreen extends Component {
           </View>
 
           <View>
-            {cards.map(({ image, text }) => 
-              <View key={text} style={styles.homeCard}>
+            {cards.map(({ image, text, link }) => 
+              <TouchableOpacity key={text} style={styles.homeCard}
+                onPress={() => {
+                  this.props.navigation.navigate(link)
+                }}
+              >
                 <Image style={{
                   height: 60,
                   width: 60,
@@ -228,7 +235,7 @@ class HomeScreen extends Component {
                 <Text style={styles.homeCardText}>
                   {text}
                 </Text>
-              </View>
+              </TouchableOpacity>
             )}
           </View>
 
