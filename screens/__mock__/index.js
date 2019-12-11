@@ -35,7 +35,7 @@ export default {
           "name": "PiggyVest Rice Farm",
           "amountInvested": 1000000,
           "expectedReturnPercentage": 20,
-          "returnDate": "20-12-2019",
+          "returnDate": "03-12-2019",
           "status": "active",
           "UserInvestment": {
               "id": 1,
@@ -50,7 +50,7 @@ export default {
           "name": "PiggyVest Chicken Farm",
           "amountInvested": 100000,
           "expectedReturnPercentage": 20,
-          "returnDate": " 27-03-2019",
+          "returnDate": " 03-03-2019",
           "status": "mature",
           "UserInvestment": {
               "id": 2,
@@ -65,7 +65,7 @@ export default {
           "name": "PiggyVest Soybean Farm",
           "amountInvested": 2000000,
           "expectedReturnPercentage": 30,
-          "returnDate": "12-12-2019",
+          "returnDate": "03-12-2019",
           "status": "active",
           "UserInvestment": {
               "id": 3,
@@ -80,7 +80,7 @@ export default {
           "name": "Afri Invest Mutual Fund",
           "amountInvested": 1000000,
           "expectedReturnPercentage": 25,
-          "returnDate": "22-04-2019",
+          "returnDate": "03-04-2019",
           "status": "mature",
           "UserInvestment": {
               "id": 4,
@@ -94,7 +94,7 @@ export default {
         "name": "PiggyVest Rice Farm",
         "amountInvested": 1000000,
         "expectedReturnPercentage": 20,
-        "returnDate": "20-12-2019",
+        "returnDate": "03-12-2019",
         "status": "active",
         "UserInvestment": {
             "id": 1,
@@ -109,7 +109,7 @@ export default {
         "name": "PiggyVest Chicken Farm",
         "amountInvested": 100000,
         "expectedReturnPercentage": 20,
-        "returnDate": " 27-03-2019",
+        "returnDate": " 03-03-2019",
         "status": "mature",
         "UserInvestment": {
             "id": 2,
@@ -124,7 +124,7 @@ export default {
         "name": "PiggyVest Soybean Farm",
         "amountInvested": 2000000,
         "expectedReturnPercentage": 30,
-        "returnDate": "12-12-2019",
+        "returnDate": "03-12-2019",
         "status": "active",
         "UserInvestment": {
             "id": 3,
@@ -139,7 +139,7 @@ export default {
         "name": "Afri Invest Mutual Fund",
         "amountInvested": 1000000,
         "expectedReturnPercentage": 25,
-        "returnDate": "22-04-2019",
+        "returnDate": "03-04-2019",
         "status": "mature",
         "UserInvestment": {
             "id": 4,
@@ -154,7 +154,7 @@ export default {
         "name": "PiggyVest Rice Farm",
         "amountInvested": 1000000,
         "expectedReturnPercentage": 20,
-        "returnDate": "20-12-2019",
+        "returnDate": "03-12-2019",
         "status": "active",
         "UserInvestment": {
             "id": 1,
@@ -169,7 +169,7 @@ export default {
         "name": "PiggyVest Chicken Farm",
         "amountInvested": 100000,
         "expectedReturnPercentage": 20,
-        "returnDate": " 27-03-2019",
+        "returnDate": " 03-03-2019",
         "status": "mature",
         "UserInvestment": {
             "id": 2,
@@ -184,7 +184,7 @@ export default {
         "name": "PiggyVest Soybean Farm",
         "amountInvested": 2000000,
         "expectedReturnPercentage": 30,
-        "returnDate": "12-12-2019",
+        "returnDate": "03-12-2019",
         "status": "active",
         "UserInvestment": {
             "id": 3,
@@ -199,7 +199,7 @@ export default {
         "name": "Afri Invest Mutual Fund",
         "amountInvested": 1000000,
         "expectedReturnPercentage": 25,
-        "returnDate": "22-04-2019",
+        "returnDate": "03-04-2019",
         "status": "mature",
         "UserInvestment": {
             "id": 4,

@@ -6,21 +6,17 @@ const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   investmentCard: {
-    height: 68,
-    backgroundColor: colors.cardBack,
+    height: 80,
+    backgroundColor: colors.secondaryColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
     flexDirection: 'row',
     display: 'flex',
     borderRadius: 7,
-    shadowColor: "#191919",
-    shadowOffset: {
-      width: 2,
-      height: 1,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 3.84,
+    borderColor: colors.border,
+    borderWidth: 1,
+    ...colors.defaultShadow
   },
   investmentTitle: {
     flex: 1,
@@ -49,11 +45,11 @@ export default StyleSheet.create({
     color: colors.cardRed,
     textTransform: 'uppercase',
     fontSize: 12,
-    fontFamily: fonts.redHat,
+    fontFamily: fonts.redHatM,
     marginLeft: 10
   },
   amountInvested: {
-    color: colors.cardOrange,
+    color: colors.primaryColor,
     fontSize: 14,
     fontFamily: fonts.redHat,
     fontWeight: Platform.OS === 'ios' ? '500' : '400',
@@ -64,7 +60,7 @@ export default StyleSheet.create({
     width: '100%'
   },
   countDownTimerText: {
-    color: colors.primaryColor,
+    color: colors.textGrey,
     fontWeight: Platform.OS === 'ios' ? '500' : '400',
     fontSize: 12,
   }

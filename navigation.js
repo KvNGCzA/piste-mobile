@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import AllInvestments from './screens/AllInvestments';
-import { colors } from './commons';
+import { colors, fonts } from './commons';
 
 const AppNavigator = createStackNavigator({
   LoginScreen,
@@ -13,13 +13,16 @@ const AppNavigator = createStackNavigator({
 }, {
   initialRouteName: 'HomeScreen',
   defaultNavigationOptions: {
-    // gesturesEnabled: false
-    // header: props => <Header {...props}/>,
     headerStyle: {
       backgroundColor: colors.secondaryColor,
-      color: 'white',
       borderBottomWidth: 0,
     },
+    headerTintColor: colors.primaryColor,
+    headerTitleStyle: {
+      fontFamily: fonts.redHat,
+      textTransform: 'uppercase',
+      fontSize: 14
+    }
   },
 });
 

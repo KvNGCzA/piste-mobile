@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import actions from '../../store/actions/global';
 import menuButton from '../../assets/menuButton.png'
-import mocks from './__mock__';
 import { addCommas } from '../../helpers';
 import { colors, fonts } from '../../commons';
 import AllHomeTabs from '../../components/AllHomeTabs';
@@ -142,7 +141,7 @@ class HomeScreen extends Component {
   render() {
     const cards = [{
       image: chartDecrease,
-      text: 'View Active investment',
+      text: 'View Active investments',
       link: 'AllInvestments'
     }, {
       image: moneyBill,
