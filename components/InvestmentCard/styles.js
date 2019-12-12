@@ -42,7 +42,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   expectedReturnPercentage: {
-    color: colors.cardRed,
+    color: colors.warning,
     textTransform: 'uppercase',
     fontSize: 12,
     fontFamily: fonts.redHatM,

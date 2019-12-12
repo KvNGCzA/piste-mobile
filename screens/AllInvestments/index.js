@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import styles from './styles';
 import { colors } from '../../commons';
 import mocks from '../__mock__';
 import InvestmentCard from '../../components/InvestmentCard';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default class AllInvestments extends Component {
   static navigationOptions = {
@@ -33,7 +32,9 @@ export default class AllInvestments extends Component {
           {mocks.investments.map((investment) => <InvestmentCard
             key={investment.id}
             investment={investment}
-            viewInvestment={() =>{}}
+            viewInvestment={() => this.props.navigation.navigate('SingleInvestment',  {
+              investmentId: investment.id
+            })}
             />
           )}
         </ScrollView>
