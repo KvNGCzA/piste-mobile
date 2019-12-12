@@ -6,7 +6,7 @@ import mocks from '../__mock__';
 import InvestmentCard from '../../components/InvestmentCard';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default class AllInvestments extends Component {
+export default class SingleInvestment extends Component {
   static navigationOptions = {
     title: 'Active Investments'
   }
@@ -33,7 +33,7 @@ export default class AllInvestments extends Component {
           {mocks.investments.map((investment) => <InvestmentCard
             key={investment.id}
             investment={investment}
-            viewInvestment={() => {}}
+            viewInvestment={() =>{}}
             />
           )}
         </ScrollView>
