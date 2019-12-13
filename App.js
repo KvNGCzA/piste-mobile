@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { StatusBar } from 'react-native';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './store';
-import Navigation from './navigation';
-import { colors } from './commons';
-
 import SplashScreen from 'react-native-splash-screen'
-import AddButton from './components/AddButton';
+import { store, persistor } from './app/store';
+import Navigation from './navigation';
+import { colors } from './app/commons';
+
+import AddButton from './app/components/AddButton';
 
 if (DEVELOPMENT) import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
 export default () => {

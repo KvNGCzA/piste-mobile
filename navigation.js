@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
-import AllInvestments from './screens/AllInvestments';
-import SingleInvestment from './screens/SingleInvestment';
-import { colors, fonts } from './commons';
-import HeaderBack from './components/Header/HeaderBack';
+import LoginScreen from './app/screens/LoginScreen';
+import HomeScreen from './app/screens/HomeScreen';
+import AllInvestments from './app/screens/AllInvestments';
+import SingleInvestment from './app/screens/SingleInvestment';
+import { colors, fonts } from './app/commons';
+import HeaderBack from './app/components/Header/HeaderBack';
 
 const AppNavigator = createStackNavigator({
   LoginScreen,

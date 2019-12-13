@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import menu from '../../../assets/menu.png';
 import { withNavigation } from 'react-navigation';
+import chevronBack from '../../../../assets/chevronBack.png';
 
-class HeaderMenu extends Component {
+class HeaderBack extends Component {
   render() {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.navigation.navigate('Menu')
+          this.props.navigation.goBack()
         }}
       >
-        <Image source={menu} style={{
+        <Image source={chevronBack} style={{
           height: 30,
           width: 30,
           resizeMode: 'contain',
@@ -23,4 +23,4 @@ class HeaderMenu extends Component {
   }
 }
 
-export default withNavigation(HeaderMenu);
+export default withNavigation(HeaderBack);

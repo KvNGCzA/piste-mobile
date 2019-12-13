@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import profileImage from '../../../assets/profileImage.jpg';
+import profileImage from '../../../../assets/profileImage.jpg';
 import { withNavigation } from 'react-navigation';
 
 class HeaderProfile extends Component {
