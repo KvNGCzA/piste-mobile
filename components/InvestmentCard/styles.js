@@ -51,8 +51,7 @@ export default StyleSheet.create({
   amountInvested: {
     color: colors.primaryColor,
     fontSize: 14,
-    fontFamily: fonts.redHat,
-    fontWeight: Platform.OS === 'ios' ? '500' : '400',
+    fontFamily: fonts.redHatM,
   },
   countDownTimer: {
     alignItems: 'center',
@@ -61,7 +60,7 @@ export default StyleSheet.create({
   },
   countDownTimerText: {
     color: colors.textGrey,
-    fontWeight: Platform.OS === 'ios' ? '500' : '400',
+    fontFamily: fonts.redHatM,
     fontSize: 12,
   }
 });

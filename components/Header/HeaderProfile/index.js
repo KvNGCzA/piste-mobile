@@ -16,7 +16,7 @@ class HeaderProfile extends Component {
           style={{
             height: 40,
             width: 40,
-            resizeMode: 'contain',
+            resizeMode: 'cover',
             marginRight: 20,
             borderRadius: 20
           }}

@@ -8,6 +8,7 @@ import Navigation from './navigation';
 import { colors } from './commons';
 
 import SplashScreen from 'react-native-splash-screen'
+import AddButton from './components/AddButton';
 
 if (DEVELOPMENT) import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
 export default () => {
@@ -19,6 +20,7 @@ export default () => {
       <PersistGate persistor={persistor}>
         <StatusBar hidden backgroundColor={colors.secondaryColor} barStyle="dark-content" />
         <Navigation />
+        <AddButton />
       </PersistGate>
     </Provider>
   );

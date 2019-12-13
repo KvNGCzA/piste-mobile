@@ -19,13 +19,15 @@ const AppNavigator = createStackNavigator({
     headerStyle: {
       backgroundColor: colors.secondaryColor,
       borderBottomWidth: 0,
+      elevation: 0,
+      shadowColor: 'transparent'
     },
     headerTintColor: colors.primaryColor,
     headerTitleStyle: {
       fontFamily: fonts.redHat,
       textTransform: 'uppercase',
       fontSize: 14,
-      letterSpacing: 1
+      letterSpacing: 1,
     },
     headerLeft: <HeaderBack />
   },

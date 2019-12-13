@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, StatusBar, Text, View, ImageBackground, Image, TouchableOpacity
+  ScrollView, Text, View, ImageBackground, Image, TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './styles';
@@ -142,14 +142,15 @@ class HomeScreen extends Component {
       <View style={{
         flexDirection: 'row',
         alignItems: 'center',
+        width: '100%'
       }}>
         <Text style={{
           fontFamily: fonts.redHatM,
           textTransform: 'capitalize',
           color: colors.primaryColor,
           fontSize: 16,
-          paddingTop: 20,
-          paddingBottom: 20,
+          paddingVertical: 20,
+          paddingLeft: 10,
           letterSpacing: 1
         }}>Good Morning Christopher</Text>
         <Image source={sun} style={{
@@ -178,9 +179,12 @@ class HomeScreen extends Component {
     }];
 
     return (
-      <View style={{
-        width: '90%',
-      }}>
+      <ScrollView style={{
+        width: '100%',
+        paddingHorizontal: 10
+      }}
+      showsVerticalScrollIndicator={false}
+      >
 
         <View>
           {cards.map(({ image, text, link }) => 
@@ -201,7 +205,7 @@ class HomeScreen extends Component {
           )}
         </View>
 
-      </View>
+      </ScrollView>
     );
   }
 

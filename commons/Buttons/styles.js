@@ -24,10 +24,9 @@ export default StyleSheet.create({
   },
   bg_home_text: {
     color: colors.secondaryColor,
-    fontWeight: Platform.OS === 'ios' ? '500' : '400',
     fontSize: 16,
     textTransform: 'uppercase',
-    fontFamily: fonts.redHat
+    fontFamily: fonts.redHatM
   },
   disabled: {
     opacity: 0.25
