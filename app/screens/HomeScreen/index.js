@@ -8,11 +8,11 @@ import actions from '../../store/actions/global';
 import { addCommas } from '../../helpers';
 import { colors, fonts } from '../../commons';
 import reactotron from 'reactotron-react-native';
-import chartDecrease from '../../../assets/chart-decrease.png';
-import moneyBill from '../../../assets/money-bill.png';
-import history from '../../../assets/history.png';
+import chartDecrease from '../../../assets/icons/chart-decrease.png';
+import moneyBill from '../../../assets/icons/money-bill.png';
+import history from '../../../assets/icons/history.png';
 import homeImage from '../../../assets/homeImage.png';
-import sun from '../../../assets/sun.png';
+import sun from '../../../assets/icons/sun.png';
 import options from '../../components/Header';
 
 const defaultNewInvestment = {

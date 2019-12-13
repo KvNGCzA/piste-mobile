@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import menu from '../../../../assets/menu.png';
+import menu from '../../../../assets/icons/menu.png';
 import { withNavigation } from 'react-navigation';
 
 class HeaderMenu extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import chevronBack from '../../../../assets/chevronBack.png';
+import chevronBack from '../../../../assets/icons/chevronBack.png';
 
 class HeaderBack extends Component {
   render() {
