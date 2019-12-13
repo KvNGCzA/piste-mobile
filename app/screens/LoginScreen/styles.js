@@ -23,8 +23,7 @@ export default StyleSheet.create({
   },
   label: {
     color: colors.primaryColor,
-    fontFamily: fonts.redHat,
-    fontWeight: Platform.OS === 'ios' ? '500' : '400',
+    fontFamily: fonts.redHatM,
     fontSize: 16,
   },
   labelCont: {
@@ -54,14 +53,12 @@ export default StyleSheet.create({
   greeting: {
     fontSize: 32,
     color: colors.primaryColor,
-    fontFamily: fonts.redHat,
-    fontWeight: Platform.OS === 'ios' ? '500' : '400',
+    fontFamily: fonts.redHatM,
   },
   firstName: {
     fontSize: 40,
     color: colors.primaryColor,
-    fontFamily: fonts.redHat,
-    fontWeight: Platform.OS === 'ios' ? '500' : '400',
+    fontFamily: fonts.redHatM,
     marginBottom: 30,
     top: -10
   }

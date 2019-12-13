@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { colors } from '../../commons';
-import edit from '../../assets/edit.png';
-import mark from '../../assets/mark.png';
-import trash from '../../assets/trash.png';
+import edit from '../../../assets/icons/edit.png';
+import mark from '../../../assets/icons/mark.png';
+import trash from '../../../assets/icons/trash.png';
 import mocks from '../__mock__';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class SingleInvestment extends Component {
   static navigationOptions = ({ navigation }) => {

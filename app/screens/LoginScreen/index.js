@@ -5,7 +5,7 @@ import {
 import { DEVELOPMENT_EMAIL, DEVELOPMENT_PASSWORD } from 'react-native-dotenv';
 import { connect } from 'react-redux';
 import styles from './styles';
-import logo from '../../assets/logo-3x.png';
+import logo from '../../../assets/logo-3x.png';
 import Button from '../../commons/Buttons';
 import actions from '../../store/actions/global';
 import reactotron from 'reactotron-react-native';
